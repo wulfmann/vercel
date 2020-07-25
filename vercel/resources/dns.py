@@ -1,44 +1,40 @@
-from vercel.request import make_request
-from vercel.resources.base import CreatableResource
+from vercel.resources.base import Resource
 
-class Record(Resource):
-    def __init__(self, uid, domain_name):
-        self.uid = uid
+class DnsRecord(Resource):
+    def __init__(self, id, domain_name):
+        self.id = id
         self.domain_name = domain_name
 
-class Domain(
-  CreateableResource
-):
-    RESOURCE_NAME = 'domains'
+    @classmethod
+    def get(cls, domain_name, record_id):
+        return cls(
+            id=record_id,
+            domain_name=domain_name
+        )
 
-    def __init__(self): pass
+    @classmethod
+    def create(cls, domain_name, api_key=None, team_id=None, **params):
+        api_version = params.get('api_version', 'v2')
 
-    def create_dns_record(cls, name, type, value, ttl=60, api_version='v2'):
-      cls.make_request(
-        res = make_request(
+        res = cls.make_request(
             method='POST',
-            resource=f'/{api_version}/{cls.class_url()}/{domain_name}/records',
-            data={
-                'name': name,
-                'type': type,
-                'value': value,
-                'ttl': ttl
-            }
+            resource=f"/{api_version}/domains/{domain_name}/records",
+            data=params,
+            api_key=api_key,
+            team_id=team_id
         )
 
-        return Record(
-            uid=res['uid'],
+        return cls(
+            id=res['uid'],
             domain_name=domain_name
         )
 
-    def get_dns_record(cls, domain_name, record_id):
-        return Record(
-            uid=record_id,
-            domain_name=domain_name
-        )
+    def delete(self, api_key=None, team_id=None, **params):
+        api_version = params.get('api_version', 'v2')
 
-    def delete_dns_record(self):
-        make_request(
+        self.make_request(
             method='DELETE',
-            resource=f'/v2/domains/{self.domain_name}/records/{self.uid}'
+            resource=f'/{api_version}/domains/{self.domain_name}/records/{self.id}',
+            api_key=api_key,
+            team_id=team_id
         )

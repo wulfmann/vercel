@@ -32,16 +32,18 @@ class TestDns(TestCase):
         assert [
             call(
                 method='POST',
-                url='https://api.vercel.com/v2/domains/test.com/records?teamId=fake-team-id',
+                url='https://api.vercel.com/v2/domains/test.com/records',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
+                params={
+                    'teamId': 'fake-team-id'
+                },
                 json={
                     'name': '',
                     'type': 'TXT',
-                    'value': 'something',
-                    'ttl': 60
+                    'value': 'something'
                 }
             )
         ] == mock_request.mock_calls
@@ -58,10 +60,13 @@ class TestDns(TestCase):
         assert [
             call(
                 method='DELETE',
-                url='https://api.vercel.com/v2/domains/test.com/records/fake-record-id?teamId=fake-team-id',
+                url='https://api.vercel.com/v2/domains/test.com/records/fake-record-id',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
                 }
             )
         ] == mock_request.mock_calls
