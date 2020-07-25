@@ -1,0 +1,85 @@
+[
+  {
+    "type": "stdout",
+    "created": 1548675195849,
+    "payload": {
+        "deploymentId": "dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo",
+        "info": {
+            "type": "build",
+            "name": "bld_j178cr7cm",
+            "entrypoint": "package.json"
+        },
+        "text": "sandbox worker for deployment dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo build bld_j178cr7cm",
+        "id": "34536610937913059182614073591023254523011083812228628481",
+        "date": 1548675195849,
+        "serial": "34536610937913059182614073591023254523011083812228628481"
+    }
+  },
+  {
+    "type": "stdout",
+    "created": 1548675195854,
+    "payload": {
+        "deploymentId": "dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo",
+        "info": {
+            "type": "build",
+            "name": "bld_j178cr7cm",
+            "entrypoint": "package.json"
+        },
+        "text": "patching https://api-bru1.zeit.co/v2/now/deployments/dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo/builds/bld_j178cr7cm",
+        "id": "34536610938024562908606726706730933114374325619758530562",
+        "date": 1548675195854,
+        "serial": "34536610938024562908606726706730933114374325619758530562"
+    }
+  },
+  {
+    "type": "stdout",
+    "created": 1548675196557,
+    "payload": {
+        "deploymentId": "dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo",
+        "info": {
+            "type": "build",
+            "name": "bld_j178cr7cm",
+            "entrypoint": "package.json"
+        },
+        "text": "cleaning up...
+",
+        "id": "34536610953701986783173754775230543060046123758462763011",
+        "date": 1548675196557,
+        "serial": "34536610953701986783173754775230543060046123758462763011"
+    }
+  },
+  {
+    "type": "stdout",
+    "created": 1548675196561,
+    "payload": {
+        "deploymentId": "dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo",
+        "info": {
+            "type": "build",
+            "name": "bld_j178cr7cm",
+            "entrypoint": "package.json"
+        },
+        "text": "running yarn for @vercel/build-utils...
+",
+        "id": "34536610953791189763967877267796685933136717204486684676",
+        "date": 1548675196561,
+        "serial": "34536610953791189763967877267796685933136717204486684676"
+    }
+  },
+  {
+    "type": "stdout",
+    "created": 1548675196984,
+    "payload": {
+        "deploymentId": "dpl_CyMsjjbZjkvMBom8ugeAWdKdcfQo",
+        "info": {
+            "type": "build",
+            "name": "bld_j178cr7cm",
+            "entrypoint": "package.json"
+        },
+        "text": "yarn add v1.12.3
+",
+        "id": "34536610963224404982946330856666294762466974121516400645",
+        "date": 1548675196984,
+        "serial": "34536610963224404982946330856666294762466974121516400645"
+    }
+  },
+]
