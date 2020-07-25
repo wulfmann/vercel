@@ -1,5 +1,13 @@
 from vercel.request import make_request
 
+class Billing:
+  def __init__(self, plan, period, trial, cancelation, addons):
+    self.plan = self.plan
+    self.period = period
+    self.trial = trial
+    self.cancelation = cancelation
+    self.addons = addons
+
 class Profile:
   def __init__(self, service, link):
     self.service = service
@@ -10,10 +18,10 @@ class User:
       self.uid = uid
       self.email = email
       self.name = name
-      username = username
-      avatar = avatar
-      platform_version = platform_version
-      billing = Billing(**billing)
+      self.username = username
+      self.avatar = avatar
+      self.platform_version = platform_version
+      self.billing = billing
       self.bio = bio
       self.website = website
       self.profiles = profiles
@@ -32,5 +40,14 @@ class User:
           for p in user.get('profiles')
         ]
         return cls(
-            uid=user['uid']
+          uid=user['uid'],
+          email=user['email'],
+          name=user['name'],
+          username=user['username'],
+          avatar=user['avatar'],
+          platform_version=user['platformVersion'],
+          billing=Billing(**user['billibg']),
+          bio=user['bio'],
+          website=user['website'],
+          profiles=profiles
         )
