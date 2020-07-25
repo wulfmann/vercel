@@ -1,5 +1,5 @@
 from vercel.resources.base import Resource
-class Env():
+class EnvironmentVariable():
   def delete(self):
     res = cls.make_request(
       method='DELETE'
@@ -156,7 +156,12 @@ class Project(Resource):
 
         res = cls.make_request(
           method='POST',
-          resource=f''
+          resource=f'/projects/{self.id}/env',
+          data={
+            'key': key,
+            'value': value,
+            'target': target
+          }
         )
         
         return Env.create_from_data(self.id, res)
@@ -165,7 +170,7 @@ class Project(Resource):
 
         res = cls.make_request(
           method='POST',
-          resource=f''
+          resource=f'/projects/{self.id}/alias'
         )
         
         return
@@ -174,18 +179,18 @@ class Project(Resource):
 
         res = cls.make_request(
           method='PATCH',
-          resource=f''
+          resource=f'/projects/{self.id}/alias'
         )
         
         return
         
-    def remove_domain(self, domain, redirect=None, api_version='v1'):
+    def remove_domain(self, domain, api_version='v1'):
 
         res = cls.make_request(
           method='DELETE',
-          resource=f'',
+          resource=f'/projects/{self.id}/alias',
           params={
-            'domain': ''
+            'domain': domain
           }
         )
         
