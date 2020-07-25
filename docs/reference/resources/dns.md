@@ -19,10 +19,9 @@ records = domain.list_dns_records(
 
 for record in records.iter():
   print(record.id) # rec_xxx
-
 ```
 
-[Learn More]() about how this library handles pagination.
+[Learn More](/docs/reference/pagination) about how this library handles pagination.
 
 ### Create a Record
 
@@ -36,13 +35,12 @@ record = domain.create_dns_record(
 )
 
 print(record.id) # rec_xxx
-
 ```
 
 ### Delete a Record
 
 ```python
 domain = vercel.Domain.get('vercel.com')
-domain.delete_dns_record('rec_xxx')
-
+record = domain.get_dns_record('rec_xxx')
+record.delete()
 ```

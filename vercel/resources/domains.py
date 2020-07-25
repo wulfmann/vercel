@@ -9,6 +9,12 @@ class Domain(Resource):
             'team_id': team_id
         }
 
+    @classmethod
+    def get(cls, name):
+        return cls(
+            name=name
+        )
+
     def create_dns_record(self, **params):
         return DnsRecord.create(
             domain_name=self.name,
@@ -18,8 +24,7 @@ class Domain(Resource):
         )
 
     def get_dns_record(self, record_id):
-        return DnsRecord(
-            id=record_id,
+        return DnsRecord.get(
             domain_name=self.name,
-            **self.owner
+            record_id=record_id
         )
