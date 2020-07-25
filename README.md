@@ -63,6 +63,15 @@ The following resources are supported by the sdk
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|List Domains|❌||
+|Create Domain|❌||
+|Transfer in a  Domain|❌||
+|Verify Domain|❌||
+|Get Domain|❌||
+|Delete Domain|❌||
+|Check Domain Availability|❌||
+|Check Domain Price|❌||
+|Purchase Domain|❌||
 
 ### DNS
 
@@ -76,31 +85,72 @@ The following resources are supported by the sdk
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|List Certificates|❌||
+|Get Certificate|❌||
+|Create Certificate|❌||
+|Submit Certificate|❌||
+|Delete Certificate|❌||
 
 ### Aliases
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|List Aliases|❌||
+|Get Alias|❌||
+|Delete Alias|❌||
+|Purge Alias|❌||
+|List Aliases By Deployment|❌||
+|Assign Alias To Deployment|❌||
 
 ### Secrets
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|List Secrets|❌||
+|Get Secret|❌||
+|Create Secret|❌||
+|Change Secret Name|❌||
+|Delete Secret|❌||
 
 ### Teams
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|Create Team|❌||
+|Delete Team|❌||
+|List Teams|❌||
+|Get Team|❌||
+|Update Team|❌||
+|List Team Members|❌||
+|Invite User To Team|❌||
+|Change User Role Or Status|❌||
+|Request To Join Team|❌||
+|Check Status Of Join Request|❌||
+|Remove User From Team|❌||
 
 ### Projects
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|Create Project|❌||
+|Ensure Project Exists|❌||
+|Get Project|❌||
+|List Projects|❌||
+|Update Project|❌||
+|Delete Project|❌||
+|List Project Environment Variables|❌||
+|Create Project Environment Variable|❌||
+|Delete Project Environment Variable|❌||
+|Add Domain To Project|❌||
+|Set Redirect For Domain|❌||
+|Delete Production Domain For Project|❌||
 
 ### Authentication
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|Request Login|❌||
+|Verify Login|❌||
 
 ### Oauth2
 
@@ -111,8 +161,14 @@ The following resources are supported by the sdk
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|List Webhooks|❌||
+|Create Webhook|❌||
+|Delete Webhook|❌||
 
 ### Log Drains
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
+|List Log Drains|❌||
+|Create Log Drain|❌||
+|Delete Log Drain|❌||
