@@ -1,5 +1,7 @@
 # Vercel Python SDK
 
+## 🚨 This library is currently in alpha. Not many resources are supported and the core API is subject to change.
+
 ## Quickstart
 
 ### User Resources
@@ -29,5 +31,4 @@ vercel.Domain.create(
 
 ## Resource Support
 
-The following resources are supported by the sdk
-
+See the [support table](/docs/supported-resources.md) for an up-to-date list of the API resources this library supports.
