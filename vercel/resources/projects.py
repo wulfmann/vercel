@@ -1,128 +1,107 @@
 from vercel.resources.base import Resource
-class EnvironmentVariable():
-  def delete(self):
-    res = cls.make_request(
-      method='DELETE'
+from vercel.resources.deployment import Deployment
+
+class EnvironmentVariable(Resource):
+  def __init__(self, project_id, key, value, target):
+    self.project_id = project_id
+    self.key = key
+    self.value = value
+    self.target = target
+
+  @classmethod
+  def from_data(cls, project_id, data):
+    return cls(
+      project_id=project_id,
+      key=data['key'],
+      value=data['value'],
+      target=data['target']
+    )
+
+  def delete(self, api_version='v'):
+    res = self.make_request(
+      method='DELETE',
+      resource=f'',
+      api_version=api_version
     )
 
 class Project(Resource):
-    def __init__(self, id, name):
+    def __init__(self, id, name, aliases, account_id, updated_at, created_at, latest_deployments, production_deployment, environment_variables):
         self.id = id
         self.name = name
         self.aliases = aliases
         self.account_id = account_id
-
-    @classmethod
-    def get(cls, identifier):
-        res = cls.make_request(
+        self.updated_at = updated_at
+        self.created_at = created_at
+        self.latest_deployments = latest_deployments
+        self.production_deployment = production_deployment
+        self.environment_variables = environment_variables
         
-        )
-        
-        production_deployment = target.get('production')
-        
-        if production_deployment is not None:
-          production_deployment = Deployment(
-            id=production_deployment['id'],
-            aliases=production_deployment['alias'],
-            alias_assigned=production_deployment['aliasAssigned'],
-            created_at=production_deployment['createdAt'],
-            created_in=production_deployment['createdIn'],
-            deployment_host ame=production_deployment['deploymentHostname'],
-            forced=production_deployment['forced'],
-            meta=production_deployment['meta'],
-            plan=production_deployment['plan'],
-            private=production_deployment['private'],
-            ready_state=production_deployment['readyState'],
-            requested_at=production_deployment['requestedAt'],
-            target=production_deployment['target'],
-            team_id=production_deployment['teamId'],
-            type=production_deployment['type'],
-            url=production_deployment['url'],
-            user_id=production_deployment['userId']
-          )
-        
-        aliases = [
-          Alias(
-            domain=alias['domain'],
-            target=alias['target'],
-            created_at=res['createdAt'],
-            configured_by=res['configuredBy'],
-            configure_changed_by=res['configureChangedBy']
-          )
-          for alias in res['alias']
-        ]
-        
-        env = [
-          Env(
-            key=variable['key'],
-            value=variable['value'],
-            configuration_id=variable['configurationId'],
-            updated_at=variable['updatedAt'],
-            created_at=variable['createdAt']
-          )
-          for variable in res['env']
-        ]
-        
-        latest_deployments = [
-          Deployment(
-            id=deployment['id'],
-            aliases=deployment['alias'],
-            alias_assigned=deployment['aliasAssigned'],
-            created_at=deployment['createdAt'],
-            created_in=deployment['createdIn'],
-            deployment_host ame=deployment['deploymentHostname'],
-            forced=deployment['forced'],
-            meta=deployment['meta'],
-            plan=deployment['plan'],
-            private=deployment['private'],
-            ready_state=deployment['readyState'],
-            requested_at=deployment['requestedAt'],
-            target=deployment['target'],
-            team_id=deployment['teamId'],
-            type=deployment['type'],
-            url=deployment['url'],
-            user_id=deployment['userId']
-          )
-          for deployment in res['latestDeployments']
-        ]
-
-        return cls(
-            id=res['id'],
-            name=name,
-            aliases=aliases,
-            account_id=res['accountId'],
-            updated_at=res['updatedAt'],
-            created_at=res['createdAt'],
-            latest_deployments=latest_deployments,
-            production_deployment=production_deployment,
-            env=env
-        )
+    def update_from_data(self, data):
+      return self
         
     @classmethod
-    def create(cls, name):
-        res = cls.make_request(
-        
-        )
-        
-        aliases = [
-          Alias(
-            domain=alias['domain'],
-            target=alias['target'],
-            created_at=res['createdAt'],
-            configured_by=res['configuredBy'],
-            configure_changed_by=res['configureChangedBy']
-          )
-          for alias in res['alias']
-        ]
+    def from_data(cls, data):
+      # Aliases
+      aliases = [
+        Alias.from_data(alias)
+        for alias in data.get('alias', [])
+      ]
 
-        return cls(
-            id=res['id'],
-            name=name,
-            aliases=aliases,
-            account_id=res['accountId'],
-            updated_at=res['updatedAt'],
-            created_at=res['createdAt']
+      # Production Deployment
+      target = data.get('target', {})
+      production = target.get('production')
+      
+      if production is not None:
+        production = Deployment.from_data(production)
+      
+      # Environment Variables
+      environment_variables = [
+        EnvironmentVariable.from_data(env)
+        for env in data.get('env', [])
+      ]
+      
+      return cls(
+        id=data['id'],
+        name=data['name'],
+        aliases=aliases,
+        account_id=res['accountId'],
+        updated_at=res['updatedAt'],
+        created_at=res['createdAt'],
+        latest_deployments=latest_deployments,
+        production_deployment=production,
+        environment_variables=environment_variables
+      )
+
+    @classmethod
+    def get(cls, identifier, api_version='v1'):
+        res = cls.make_request(
+          method='GET',
+          resource=f'/projects/{identifier}',
+          api_version=api_version
         )
+        return cls.from_data(res)
+        
+    @classmethod
+    def create(cls, name, api_version='v1'):
+        res = cls.make_request(
+          method='POST',
+          resource=f'/projects',
+          api_version=api_version,
+          data={
+            'name': name
+          }
+        )
+        return cls.from_data(res)
+        
+    @classmethod
+    def list(cls, api_version='v4'):
+        res = cls.make_request(
+          method='GET',
+          resource=f'/projects',
+          api_version=api_version
+        )
+        # todo pagination
+        return cls.from_data(res)
         
     def update(self, framework=None, public_source=None, build_command=None, dev_command=None, output_directory=None, root_directory=None, api_version='v2'):
         res = cls.make_request(
@@ -131,7 +110,7 @@ class Project(Resource):
           data={}
         )
         
-        self.refresh_from_data(res)
+        self.update_from_data(res)
         
         return self
         
@@ -164,7 +143,7 @@ class Project(Resource):
           }
         )
         
-        return Env.create_from_data(self.id, res)
+        return EnvironmentVariable.from_data(self.id, res)
         
     def add_domain(self, domain, redirect=None, api_version='v1'):
 
