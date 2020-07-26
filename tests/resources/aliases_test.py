@@ -32,6 +32,9 @@ class TestAliases(TestCase):
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
                 }
             ),
             call(
