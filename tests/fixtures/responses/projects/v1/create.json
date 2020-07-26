@@ -1,0 +1,16 @@
+{
+  "id":"project-id",
+  "name":"test-project",
+  "alias":[
+    {
+      "domain": "test-project.now.sh",
+      "target": "PRODUCTION",
+      "createdAt": 1555413045188,
+      "configuredBy": "A",
+      "configuredChangedAt": 1555413045188
+    }
+  ],
+  "accountId":"account-id",
+  "updatedAt":1555413045188,
+  "createdAt":1555413045188
+}
