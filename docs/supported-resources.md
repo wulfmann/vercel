@@ -8,7 +8,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|Get User|✅|[Vercel](https://vercel.com/docs/api#endpoints/user)|
+|Get User|❌|[Vercel](https://vercel.com/docs/api#endpoints/user)|
 
 ### Deployments
 
@@ -37,11 +37,11 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Operation|Supported|Reference|
 |---------|---------|-------------|
 |List Domains|❌||
-|Create Domain|❌||
+|Create Domain|✅||
 |Transfer in a  Domain|❌||
 |Verify Domain|❌||
-|Get Domain|❌||
-|Delete Domain|❌||
+|Get Domain|✅||
+|Delete Domain|✅||
 |Check Domain Availability|❌||
 |Check Domain Price|❌||
 |Purchase Domain|❌||

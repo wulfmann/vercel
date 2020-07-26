@@ -1,0 +1,33 @@
+{
+  "domain": {
+    "id": "domain-id",
+    "name": "example.com",
+    "serviceType": "external",
+    "nsVerifiedAt": null,
+    "txtVerifiedAt": null,
+    "cdnEnabled": false,
+    "createdAt": 1544658552174,
+    "expiresAt": null,
+    "boughtAt": null,
+    "verificationRecord": "verification-id",
+    "verified": false,
+    "nameservers": [
+      "ns1.nameserver.net",
+      "ns2.nameserver.net"
+    ],
+    "intendedNameservers": [
+      "a.zeit-world.co.uk",
+      "c.zeit-world.org",
+      "d.zeit-world.com",
+      "f.zeit-world.net"
+    ],
+    "creator": {
+      "id": "creator-id",
+      "username": "zeit_user",
+      "email": "demo@example.com"
+    },
+    "suffix": false,
+    "aliases": [],
+    "certs": []
+  }
+}
