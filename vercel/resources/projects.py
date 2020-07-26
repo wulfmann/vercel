@@ -1,5 +1,23 @@
 from vercel.resources.base import Resource
-from vercel.resources.deployment import Deployment
+from vercel.resources.deployments import Deployment
+
+class Alias:
+  def __init__(self, domain, target, created_at, configured_by, configured_changed_at):
+    self.domain = domain
+    self.target = target
+    self.created_at = created_at
+    self.configured_by = configured_by
+    self.configured_changed_at = configured_changed_at
+
+  @classmethod
+  def from_data(cls, data):
+    return cls(
+      domain=data['domain'],
+      target=data['target'],
+      created_at=data['createdAt'],
+      configured_by=data['configuredBy'],
+      configured_changed_at=data['configuredChangedAt']
+    )
 
 class EnvironmentVariable(Resource):
   def __init__(self, project_id, key, value, target):
@@ -58,6 +76,12 @@ class Project(Resource):
       environment_variables = [
         EnvironmentVariable.from_data(env)
         for env in data.get('env', [])
+      ]
+      
+      # Latest Deployments
+      latest_deployments = [
+        Deployment.from_data(deployment)
+        for deployment in data.get('latestDeployments', [])
       ]
       
       return cls(
