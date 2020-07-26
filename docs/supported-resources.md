@@ -18,11 +18,11 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Upload Deployment Files|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/upload-deployment-files)|
 |List Deployments|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/list-deployments)|
 |Get Deployment|✅|[Vercel](https://vercel.com/docs/api#endpoints/deployments/get-a-single-deployment)|
-|Delete Deployment|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/delete-a-deployment)|
+|Delete Deployment|✅|[Vercel](https://vercel.com/docs/api#endpoints/deployments/delete-a-deployment)|
 |List DeploymentFiles|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/list-deployment-files)|
 |Get Single File Contents|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/get-single-file-contents)|
 |List Builds|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/list-builds)|
-|Cancel Deployment|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/cancel-a-deployment)|
+|Cancel Deployment|✅|[Vercel](https://vercel.com/docs/api#endpoints/deployments/cancel-a-deployment)|
 
 ### Logs
 
