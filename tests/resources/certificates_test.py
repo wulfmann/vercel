@@ -78,3 +78,56 @@ class TestCertificates(TestCase):
                 }
             )
         ] == mock_request.mock_calls
+        
+    @patch('requests.request')
+    def test_create_v3(self, mock_request):
+        mock_request.return_value = MockResponse(response={})
+
+        vercel.Certificate.create(['test.com'])
+        
+        assert [
+            call(
+                method='POST',
+                url='https://api.vercel.com/v3/now/certs',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                data={
+                  'domains': ['test.com']
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            )
+        ] == mock_request.mock_calls
+        
+    @patch('requests.request')
+    def test_submit_v3(self, mock_request):
+        mock_request.return_value = MockResponse(response={})
+
+        vercel.Certificate.submit(
+          ca='ca',
+          cert='cert',
+          key='key'
+        )
+        
+        assert [
+            call(
+                method='PUT',
+                url='https://api.vercel.com/v3/now/certs',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                data={
+                  'ca': 'ca',
+                  'cert': 'cert',
+                  'key': 'key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            )
+        ] == mock_request.mock_calls
+        
