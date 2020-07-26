@@ -69,11 +69,11 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Operation|Supported|Reference|
 |---------|---------|-------------|
 |List Aliases|❌||
-|Get Alias|❌||
-|Delete Alias|❌||
-|Purge Alias|❌||
+|Get Alias|✅||
+|Delete Alias|✅||
+|Purge Alias|✅||
 |List Aliases By Deployment|❌||
-|Assign Alias To Deployment|❌||
+|Assign Alias To Deployment|✅||
 
 ### Secrets
 

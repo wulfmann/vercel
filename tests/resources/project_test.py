@@ -32,7 +32,7 @@ class TestProject(TestCase):
         assert project.name == 'test-project'
         assert 1 == len(project.aliases)
         alias = project.aliases[0]
-        assert isinstance(alias, vercel.Alias)
+        assert isinstance(alias, vercel.ProjectAlias)
         
         # Verify Alias Properties
         assert alias.domain == 'test-project.now.sh'
@@ -82,7 +82,7 @@ class TestProject(TestCase):
 
         assert 1 == len(project.aliases)
         alias = project.aliases[0]
-        assert isinstance(alias, vercel.Alias)
+        assert isinstance(alias, vercel.ProjectAlias)
         
         # Verify Alias Properties
         assert alias.domain == 'test-project.now.sh'

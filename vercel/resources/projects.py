@@ -1,7 +1,7 @@
 from vercel.resources.base import Resource
 from vercel.resources.deployments import Deployment
 
-class Alias:
+class ProjectAlias:
   def __init__(self, domain, target, created_at, configured_by, configured_changed_at):
     self.domain = domain
     self.target = target
@@ -67,7 +67,7 @@ class Project(Resource):
 
       # Aliases
       aliases = [
-        Alias.from_data(alias)
+        ProjectAlias.from_data(alias)
         for alias in data.get('alias', [])
       ]
 

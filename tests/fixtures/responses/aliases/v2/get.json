@@ -1,0 +1,11 @@
+{
+  "uid": "alias-id",
+  "alias": "test-alias.now.sh",
+  "deployment": {
+    "id": "deployment-id",
+    "url": "my-alias-repfs93ww.now.sh"
+  },
+  "created": "2019-07-17T17:33:35.374Z",
+  "projectId": "projext-id",
+  "deploymentId": "deployment-id"
+}
