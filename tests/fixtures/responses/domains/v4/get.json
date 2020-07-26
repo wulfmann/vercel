@@ -9,7 +9,7 @@
     "createdAt": 1544658552174,
     "expiresAt": null,
     "boughtAt": null,
-    "verificationRecord": "verification-is",
+    "verificationRecord": "verification-id",
     "verified": false,
     "nameservers": [
       "ns1.nameserver.net",

@@ -37,14 +37,17 @@ class Domain(Resource):
         
     @classmethod
     def from_data(cls, data):
+      if not 'domain' in data:
+        raise ValueError('unabled to pull domain block from data')
+      data = data['domain']
       creator = data.get('creator')
       
       if creator is not None:
         creator = Creator.from_data(creator)
 
       return cls(
-        name=data['name'],
-        id=data.get('name'),
+        name=data.get('name'),
+        id=data.get('id'),
         service_type=data.get('serviceType'),
         ns_verified_at=data.get('nsVerifiedAt'),
         txt_verified_at=data.get('txtVerifiedAt'),
@@ -63,7 +66,7 @@ class Domain(Resource):
       )
 
     @classmethod
-    def get(cls, name):
+    def get(cls, name, api_version='v4'):
       res = cls.make_request(
         method='GET',
         resource=f'/domains/{name}',
@@ -85,12 +88,20 @@ class Domain(Resource):
       
       return cls.from_data(res)
 
-    def create_dns_record(self, **params):
+    def delete(self, api_version='v4'):
+      return self.make_request(
+        method='DELETE',
+        resource=f'/domains/{self.name}',
+        api_version=api_version
+      )
+
+    def create_dns_record(self, name, type, value, ttl=None):
         return DnsRecord.create(
             domain_name=self.name,
-            api_key=self.owner['api_key'],
-            team_id=self.owner['team_id'],
-            **params
+            name=name,
+            type=type,
+            value=value,
+            ttl=ttl
         )
 
     def get_dns_record(self, record_id):

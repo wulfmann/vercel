@@ -41,6 +41,7 @@ class Resource:
             response = response.json()
 
             if 'error' in response:
+                print(response)
                 raise VercelError(
                     code=response['error']['code'],
                     message=response['error']['message']
