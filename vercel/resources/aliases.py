@@ -16,8 +16,8 @@ class Alias(Resource):
         alias=data['alias'],
         deployment=data['deployment'],
         created=data['created'],
-        project_id=data['project_id'],
-        deployment_id=data['deployment_id']
+        project_id=data['projectId'],
+        deployment_id=data['deploymentId']
       )
       
     @classmethod
