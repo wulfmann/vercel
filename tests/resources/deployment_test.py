@@ -83,7 +83,7 @@ class TestDeployment(TestCase):
       ]
       
       deployment = vercel.Deployment.get('test-deployment')
-      deployment.delete()
+      deployment.cancel()
       
       assert [
             call(
