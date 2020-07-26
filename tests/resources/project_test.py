@@ -31,17 +31,17 @@ class TestProject(TestCase):
         alias = project.aliases[0]
         assert isinstance(alias, vercel.Alias)
         
-        assert alias.domain = ''
-        assert alias.target = 'PRODUCTION'
-        assert alias.created_at = 1555413045188
-        assert alias.configured_by = 'A'
-        assert alias.configured_changed_at = 1555413045188
+        assert alias.domain == ''
+        assert alias.target == 'PRODUCTION'
+        assert alias.created_at == 1555413045188
+        assert alias.configured_by == 'A'
+        assert alias.configured_changed_at == 1555413045188
 
-        assert project.account_id ='account-id'
-        assert project.updated_at = 1555413045188
-        assert project.created_at = 1555413045188
+        assert project.account_id == 'account-id'
+        assert project.updated_at == 1555413045188
+        assert project.created_at == 1555413045188
         
-        assert project.production_deployment = None
+        assert project.production_deployment == None
         assert 0 == len(project.latest_deployments)
         
         
