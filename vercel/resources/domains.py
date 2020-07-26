@@ -16,7 +16,7 @@ class Creator:
     )
 
 class Domain(Resource):
-    def __init__(self, name, id, service_type, ns_verified_at, txt_verified_at, cdn_enabled, created_at, bought_at, transferred_at, verification_record, verified, nameservers, intended_nameservers, creator):
+    def __init__(self, name, id, service_type, ns_verified_at, txt_verified_at, cdn_enabled, created_at, bought_at, transferred_at, verification_record, verified, nameservers, intended_nameservers, creator, suffix, aliases, certs):
         self.name = name
         self.id = id
         self.service_type = service_type
@@ -31,6 +31,9 @@ class Domain(Resource):
         self.nameservers = nameservers
         self.intended_nameservers = intended_nameservers
         self.creator = creator
+        self.suffix = suffix
+        self.aliases = aliases
+        self.certs = certs
         
     @classmethod
     def from_data(cls, data):
@@ -53,14 +56,21 @@ class Domain(Resource):
         verified=data.get('verified'),
         nameservers=data.get('nameservers', []),
         intended_nameservers=data.get('intendedNameservers', []),
-        creator=creator
+        creator=creator,
+        suffix=data.get('suffix'),
+        aliases=data.get('aliases', []),
+        certs=data.get('certs', [])
       )
 
     @classmethod
     def get(cls, name):
-      return cls.from_data({
-        'name': name
-      })
+      res = cls.make_request(
+        method='GET',
+        resource=f'/domains/{name}',
+        api_version=api_version
+      )
+      
+      return cls.from_data(res)
       
     @classmethod
     def create(cls, name, api_version='v4'):
