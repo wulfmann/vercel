@@ -43,3 +43,30 @@ class Deployment(Resource):
       url=data['url'],
       user_id=data['userId']
     )
+    
+    @classmethod
+    def get(cls, deployment_id=None, deployment_url=None, api_version='v11'):
+      if deployment_id is None and deployment_url is None:
+        raise Exception('one of deployment_id or deployment_url is required')
+        
+      if deployment_id is not None and deployment_url is not None:
+        raise Exception('only one of deployment_id or deployment_url can be specified')
+        
+        resource = '/deployments'
+        
+        if deployment_id is not None:
+          resource += f'/{deployment_id}'
+          
+        params = {}
+        
+        if deployment_url is not None:
+          parama['url'] = deployment_url
+
+        res = cls.make_request(
+          method='GET',
+          resource=resource,
+          api_version=api_version,
+          params=params
+        )
+
+        return cls.from_data(res)
