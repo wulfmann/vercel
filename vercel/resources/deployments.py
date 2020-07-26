@@ -1,9 +1,10 @@
 from vercel.resources.base import Resource
 
 class Deployment(Resource):
-  def __init__(self, aliases, alias_assigned, created_at, created_in, deployment_hostname, forced, id, meta, plan, private, ready_state, requested_at, target, team_id, type, url, user_id):
+  def __init__(self, aliases, alias_assigned, alias_error, created_at, created_in, deployment_hostname, forced, id, meta, plan, private, ready_state, requested_at, target, team_id, type, url, user_id, regions, functions, routes, env, build):
     self.aliases = aliases
     self.alias_assigned = alias_assigned
+    self.alias_error = alias_error
     self.created_at = created_at
     self.created_in = created_in
     self.deployment_hostname = deployment_hostname
@@ -19,6 +20,11 @@ class Deployment(Resource):
     self.type = type
     self.url = url
     self.user_id = user_id
+    self.regions = regions
+    self.functions = functions
+    self.routes = routes
+    self.env = env
+    self.build = build
 
   @classmethod
   def from_data(cls, data):
@@ -27,6 +33,7 @@ class Deployment(Resource):
     return cls(
       aliases=aliases,
       alias_assigned=data['aliasAssigned'],
+      alias_error=data.get('aliasError'),
       created_at=data['createdAt'],
       created_in=data['createdIn'],
       deployment_hostname=data['deploymentHostname'],
@@ -41,7 +48,12 @@ class Deployment(Resource):
       team_id=data['teamId'],
       type=data['type'],
       url=data['url'],
-      user_id=data['userId']
+      user_id=data['userId'],
+      regions=data.get('regions', []),
+      functions=data.get('functions'),
+      routes=data.get('routes'),
+      env=data.get('env', []),
+      build=data.get('build', { 'env': {} })
     )
     
     @classmethod
@@ -52,21 +64,19 @@ class Deployment(Resource):
       if deployment_id is not None and deployment_url is not None:
         raise Exception('only one of deployment_id or deployment_url can be specified')
         
-        resource = '/deployments'
-        
-        if deployment_id is not None:
-          resource += f'/{deployment_id}'
+      resource = '/deployments'
+      if deployment_id is not None:
+        resource += f'/{deployment_id}'
           
-        params = {}
-        
-        if deployment_url is not None:
-          parama['url'] = deployment_url
+      params = {} 
+      if deployment_url is not None:
+        params['url'] = deployment_url
 
-        res = cls.make_request(
-          method='GET',
-          resource=resource,
-          api_version=api_version,
-          params=params
-        )
+      res = cls.make_request(
+        method='GET',
+        resource=resource,
+        api_version=api_version,
+        params=params
+      )
 
-        return cls.from_data(res)
+      return cls.from_data(res)
