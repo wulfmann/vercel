@@ -53,7 +53,7 @@ class TestDeployment(TestCase):
         assert [
             call(
                 method='GET',
-                url='https://api.vercel.com/v11/deploymentts/deployment-id',
+                url='https://api.vercel.com/v11/deployments/deployment-id',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
