@@ -39,7 +39,7 @@ class Deployment(Resource):
       created_at=data['createdAt'],
       created_in=data['createdIn'],
       deployment_hostname=data.get('deploymentHostname'),
-      forced=data['forced'],
+      forced=data.get('forced'),
       id=data['id'],
       meta=data['meta'],
       plan=data['plan'],
