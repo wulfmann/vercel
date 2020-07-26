@@ -23,7 +23,7 @@ class TestTeams(TestCase):
           'id': 'team-id'
         })
 
-        team = vercel.Team.get('my-team')
+        team = vercel.Team.create('my-team')
 
         assert isinstance(team, vercel.Team)
         assert team.id == 'team-id'
@@ -56,18 +56,19 @@ class TestTeams(TestCase):
         assert [
             call(
                 method='GET',
-                url='https://api.vercel.com/v1/teams/my-team',
+                url='https://api.vercel.com/v1/teams',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
                 params={
-                    'teamId': 'fake-team-id'
+                    'teamId': 'fake-team-id',
+                    'slug': 'my-team'
                 }
             ),
             call(
                 method='DELETE',
-                url='https://api.vercel.com/v1/teams/my-team',
+                url='https://api.vercel.com/v1/teams/team-id',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
