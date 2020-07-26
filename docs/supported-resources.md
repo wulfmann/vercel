@@ -8,7 +8,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|Get User|✅|[Vercel](https://vercel.com/docs/api#endpoints/user)|
+|Get User|❌|[Vercel](https://vercel.com/docs/api#endpoints/user)|
 
 ### Deployments
 
