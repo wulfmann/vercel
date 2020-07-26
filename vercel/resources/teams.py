@@ -1,10 +1,11 @@
 from vercel.resources.base import Resource
 
 class Team(Resource):
-    def __init__(self, id, slug, name, creator_id, avatar):
+    def __init__(self, id, slug, name, created, creator_id, avatar):
         self.id = id
         self.slug = slug
         self.name = name
+        self.created = created
         self.creator_id = creator_id
         self.avatar = avatar
 
@@ -14,6 +15,7 @@ class Team(Resource):
         id=data['id'],
         slug=data.get('slug'),
         name=data.get('name'),
+        created=data.get('created'),
         creator_id=data.get('creatorId'),
         avatar=data.get('avatar')
       )
