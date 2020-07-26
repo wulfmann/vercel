@@ -88,9 +88,9 @@ class Project(Resource):
         id=data['id'],
         name=data['name'],
         aliases=aliases,
-        account_id=res['accountId'],
-        updated_at=res['updatedAt'],
-        created_at=res['createdAt'],
+        account_id=data['accountId'],
+        updated_at=data['updatedAt'],
+        created_at=data['createdAt'],
         latest_deployments=latest_deployments,
         production_deployment=production,
         environment_variables=environment_variables

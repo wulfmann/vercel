@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 
 from unittest import TestCase
 from unittest.mock import patch, call
@@ -19,19 +20,21 @@ class TestProject(TestCase):
     @patch('requests.request')
     def test_create_v1(self, mock_request):
         mock_v1_create = Path('tests/fixtures/responses/projects/v1/create.json')
-        mock_request.return_value = MockResponse(response=mock_v1_create.open().read())
+        mock_request.return_value = MockResponse(response=json.loads(mock_v1_create.open().read()))
 
         project = vercel.Project.create('test-project')
 
-        assert isinstance(record, vercel.Project)
+        assert isinstance(project, vercel.Project)
 
+        # Verify Project Properties
         assert project.id == 'project-id'
         assert project.name == 'test-project'
         assert 1 == len(project.aliases)
         alias = project.aliases[0]
         assert isinstance(alias, vercel.Alias)
         
-        assert alias.domain == ''
+        # Verify Alias Properties
+        assert alias.domain == 'test-project.now.sh'
         assert alias.target == 'PRODUCTION'
         assert alias.created_at == 1555413045188
         assert alias.configured_by == 'A'
@@ -43,7 +46,8 @@ class TestProject(TestCase):
         
         assert project.production_deployment == None
         assert 0 == len(project.latest_deployments)
-        
+
+        assert project.production_deployment == None
         
         assert [
             call(
