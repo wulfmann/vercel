@@ -38,7 +38,7 @@ class Deployment(Resource):
       alias_error=data.get('aliasError'),
       created_at=data['createdAt'],
       created_in=data['createdIn'],
-      deployment_hostname=data['deploymentHostname'],
+      deployment_hostname=data.get('deploymentHostname'),
       forced=data['forced'],
       id=data['id'],
       meta=data['meta'],
