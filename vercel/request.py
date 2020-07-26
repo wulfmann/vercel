@@ -2,13 +2,13 @@ import requests
 import vercel
 from vercel.exceptions import VercelError
 
-def make_request(method, resource, data=None):
+def make_request(method, resource, api_version, data=None):
     if vercel.api_key is None:
         raise Exception(f'api_key was not found')
 
     try:
         base = 'api.vercel.com'
-        url = f'https://{base}{resource}'
+        url = f'https://{base}/{api_version}{resource}'
 
         if vercel.team_id is not None:
             url += f'?teamId={vercel.team_id}'

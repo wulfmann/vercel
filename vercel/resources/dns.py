@@ -13,13 +13,12 @@ class DnsRecord(Resource):
         )
 
     @classmethod
-    def create(cls, domain_name, api_key=None, team_id=None, **params):
-        api_version = params.get('api_version', 'v2')
-
+    def create(cls, domain_name, api_version='v2', api_key=None, team_id=None, **params):
         res = cls.make_request(
             method='POST',
-            resource=f"/{api_version}/domains/{domain_name}/records",
+            resource=f"/domains/{domain_name}/records",
             data=params,
+            api_version=api_version,
             api_key=api_key,
             team_id=team_id
         )
@@ -29,12 +28,11 @@ class DnsRecord(Resource):
             domain_name=domain_name
         )
 
-    def delete(self, api_key=None, team_id=None, **params):
-        api_version = params.get('api_version', 'v2')
-
+    def delete(self, api_version='v2', api_key=None, team_id=None, **params):
         self.make_request(
             method='DELETE',
-            resource=f'/{api_version}/domains/{self.domain_name}/records/{self.id}',
+            resource=f'/domains/{self.domain_name}/records/{self.id}',
+            api_version=api_version,
             api_key=api_key,
             team_id=team_id
         )
