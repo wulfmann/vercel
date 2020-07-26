@@ -19,7 +19,7 @@ class TestCertificates(TestCase):
         
     @patch('requests.request')
     def test_delete_v3(self, mock_request):
-        mock_v2_get = Path('tests/fixtures/responses/certificates/v3/get.json')
+        mock_v3_get = Path('tests/fixtures/responses/certificates/v3/get.json')
         mock_request.return_value = MockResponse(response=json.loads(mock_v3_get.open().read()))
 
         team = vercel.Certificate.get('certificate-id')
