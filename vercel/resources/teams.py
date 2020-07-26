@@ -1,6 +1,6 @@
 from vercel.resources.base import Resource
 
-class DnsRecord(Resource):
+class Team(Resource):
     def __init__(self, id, slug, name, creator_id, avatar):
         self.id = id
         self.slug = slug
