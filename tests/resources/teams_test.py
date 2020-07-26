@@ -104,7 +104,7 @@ class TestTeams(TestCase):
             ),
             call(
                 method='PATCH',
-                url='https://api.vercel.com/v1/teams/my-team',
+                url='https://api.vercel.com/v1/teams/team-id',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
