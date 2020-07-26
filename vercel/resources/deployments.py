@@ -46,7 +46,7 @@ class Deployment(Resource):
       private=data.get('private'),
       ready_state=data['readyState'],
       requested_at=data.get('requestedAt'),
-      target=data('target'),
+      target=data.get('target'),
       team_id=data.get('teamId'),
       type=data.get('type'),
       url=data['url'],
