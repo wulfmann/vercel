@@ -59,10 +59,10 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Operation|Supported|Reference|
 |---------|---------|-------------|
 |List Certificates|❌||
-|Get Certificate|❌||
-|Create Certificate|❌||
-|Submit Certificate|❌||
-|Delete Certificate|❌||
+|Get Certificate|✅||
+|Create Certificate|✅||
+|Submit Certificate|✅||
+|Delete Certificate|✅||
 
 ### Aliases
 
@@ -90,7 +90,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Operation|Supported|Reference|
 |---------|---------|-------------|
 |Create Team|✅||
-|Delete Team|✅||
+|Delete Team|we||
 |List Teams|❌||
 |Get Team|✅||
 |Update Team|✅||

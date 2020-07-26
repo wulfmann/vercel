@@ -1,0 +1,7 @@
+{
+  "cns": ["wow.example.com"],
+  "uid": "certificate-id",
+  "created": "2016-08-23T18:13:09.773Z",
+  "expiration": "2016-12-16T16:00:00.000Z",
+  "autoRenew": true
+}
