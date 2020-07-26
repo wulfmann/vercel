@@ -36,7 +36,7 @@ class TestAliases(TestCase):
             ),
             call(
                 method='DELETE',
-                url='https://api.vercel.com/v2/now/aliases/test-alias',
+                url='https://api.vercel.com/v2/now/aliases/alias-id',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
@@ -59,7 +59,7 @@ class TestAliases(TestCase):
         assert [
             call(
                 method='GET',
-                url='https://api.vercel.com/v2/now/aliases/test-alias',
+                url='https://api.vercel.com/v2/now/aliases/alias-id',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
