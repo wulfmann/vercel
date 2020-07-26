@@ -50,7 +50,7 @@ class TestDeployment(TestCase):
         assert deployment.routes == None
         assert deployment.env == []
         assert deployment.build == {
-          'env': {}
+          'env': []
         }
         assert deployment.aliases == [
           "test.com",
