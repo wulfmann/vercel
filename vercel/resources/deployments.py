@@ -59,8 +59,8 @@ class Deployment(Resource):
       version=data.get('version')
     )
     
-    @classmethod
-    def get(cls, deployment_id=None, deployment_url=None, api_version='v11'):
+  @classmethod
+  def get(cls, deployment_id=None, deployment_url=None, api_version='v11'):
       if deployment_id is None and deployment_url is None:
         raise Exception('one of deployment_id or deployment_url is required')
         
