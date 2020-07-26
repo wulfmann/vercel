@@ -20,11 +20,13 @@ class Alias:
     )
 
 class EnvironmentVariable(Resource):
-  def __init__(self, project_id, key, value, target):
+  def __init__(self, project_id, key, value, configuration_id, updated_at, created_at):
     self.project_id = project_id
     self.key = key
     self.value = value
-    self.target = target
+    self.configuration_id = configuration_id
+    self.updated_at = updated_at
+    self.created_at = created_at
 
   @classmethod
   def from_data(cls, project_id, data):
@@ -32,7 +34,9 @@ class EnvironmentVariable(Resource):
       project_id=project_id,
       key=data['key'],
       value=data['value'],
-      target=data['target']
+      configuration_id=data['configurationId'],
+      updated_at=data['updatedAt'],
+      created_at=data['createdAt']
     )
 
   def delete(self, api_version='v'):
@@ -59,6 +63,8 @@ class Project(Resource):
         
     @classmethod
     def from_data(cls, data):
+      project_id = data['id']
+
       # Aliases
       aliases = [
         Alias.from_data(alias)
@@ -66,7 +72,7 @@ class Project(Resource):
       ]
 
       # Production Deployment
-      target = data.get('target', {})
+      target = data.get('targets', {})
       production = target.get('production')
       
       if production is not None:
@@ -74,7 +80,7 @@ class Project(Resource):
       
       # Environment Variables
       environment_variables = [
-        EnvironmentVariable.from_data(env)
+        EnvironmentVariable.from_data(project_id, env)
         for env in data.get('env', [])
       ]
       
@@ -85,7 +91,7 @@ class Project(Resource):
       ]
       
       return cls(
-        id=data['id'],
+        id=project_id,
         name=data['name'],
         aliases=aliases,
         account_id=data['accountId'],

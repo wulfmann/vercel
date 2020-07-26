@@ -4,13 +4,13 @@ class Deployment(Resource):
   def __init__(self, aliases, alias_assigned, created_at, created_in, deployment_hostname, forced, id, meta, plan, private, ready_state, requested_at, target, team_id, type, url, user_id):
     self.aliases = aliases
     self.alias_assigned = alias_assigned
-    self.created_at = created_at,
-    self.created_in = created_in,
+    self.created_at = created_at
+    self.created_in = created_in
     self.deployment_hostname = deployment_hostname
     self.forced = forced
     self.id = id
     self.meta = meta
-    self.plan = plan,
+    self.plan = plan
     self.private = private
     self.ready_state = ready_state
     self.requested_at = requested_at

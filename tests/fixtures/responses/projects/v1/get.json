@@ -1,0 +1,71 @@
+{
+    "id": "project-id",
+    "name": "test-project",
+    "alias": [
+        {
+            "createdAt": 1555413045188,
+            "domain": "test-project.now.sh",
+            "target": "PRODUCTION",
+            "configuredBy": "A",
+            "configuredChangedAt": 1555413045188
+        }
+    ],
+    "accountId": "account-id",
+    "createdAt": 1555413045188,
+    "updatedAt": 1555413045188,
+    "env": [
+        {
+            "key": "API_SECRET",
+            "value": "@a-new-secret",
+            "configurationId": null,
+            "updatedAt": 1557241361455,
+            "createdAt": 1557241361455
+        }
+    ],
+    "targets": {
+        "production": {
+            "alias": [
+                "test-project.now.sh"
+            ],
+            "aliasAssigned": 1571239348998,
+            "createdAt": 1571239348998,
+            "createdIn": "sfo1",
+            "deploymentHostname": "test-project-rjtr4pz3f",
+            "forced": false,
+            "id": "deployment-id",
+            "meta": {},
+            "plan": "pro",
+            "private": true,
+            "readyState": "READY",
+            "requestedAt": 1571239348998,
+            "target": "production",
+            "teamId": null,
+            "type": "LAMBDAS",
+            "url": "test-project-rjtr4pz3f.now.sh",
+            "userId": "user-id"
+        }
+    },
+    "latestDeployments": [
+        {
+            "alias": [
+                "test-project.now.sh"
+            ],
+            "aliasAssigned": 1571239348998,
+            "createdAt": 1571239348998,
+            "createdIn": "sfo1",
+            "deploymentHostname": "test-project-rjtr4pz3f",
+            "forced": false,
+            "id": "deployment-id",
+            "meta": {},
+            "plan": "pro",
+            "private": true,
+            "readyState": "READY",
+            "requestedAt": 1571239348998,
+            "target": "production",
+            "teamId": null,
+            "type": "LAMBDAS",
+            "url": "test-project-rjtr4pz3f.now.sh",
+            "userId": "user-id"
+        }
+    ]
+}
