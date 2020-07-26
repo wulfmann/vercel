@@ -92,13 +92,14 @@ class TestTeams(TestCase):
         assert [
             call(
                 method='GET',
-                url='https://api.vercel.com/v1/teams/my-team',
+                url='https://api.vercel.com/v1/teams',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
                 params={
-                    'teamId': 'fake-team-id'
+                    'teamId': 'fake-team-id',
+                    'slug': 'my-team'
                 }
             ),
             call(
@@ -137,13 +138,14 @@ class TestTeams(TestCase):
         assert [
             call(
                 method='GET',
-                url='https://api.vercel.com/v1/teams/my-team',
+                url='https://api.vercel.com/v1/teams',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
                 params={
-                    'teamId': 'fake-team-id'
+                    'teamId': 'fake-team-id',
+                    'slug': 'my-team'
                 }
             )
         ] == mock_request.mock_calls
