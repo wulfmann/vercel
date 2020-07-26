@@ -56,7 +56,7 @@ class Certificate(Resource):
 
         return cls.from_data(res)
 
-    def delete(self, api_version='v2'):
+    def delete(self, api_version='v3'):
         return self.make_request(
             method='DELETE',
             resource=f'/now/certs/{self.id}',
