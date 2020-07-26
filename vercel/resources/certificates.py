@@ -15,7 +15,7 @@ class Certificate(Resource):
         cns=data['cns'],
         created=data['created'],
         expiration=data['expiration'],
-        auto_renew_id=data['autoRenew']
+        auto_renew=data['autoRenew']
       )
       
     @classmethod
