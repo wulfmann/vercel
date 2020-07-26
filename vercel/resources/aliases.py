@@ -39,7 +39,7 @@ class Alias(Resource):
       return res
 
     @classmethod
-    def get(cls, identifier api_version='v2'):
+    def get(cls, identifier, api_version='v2'):
         res = cls.make_request(
             method='GET',
             resource=f'/now/aliases/{identifier}',
