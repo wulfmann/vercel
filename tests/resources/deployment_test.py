@@ -27,7 +27,15 @@ class TestDeployment(TestCase):
 
         assert isinstance(deployment, vercel.Deployment)
         
-        assert deployment.target == None
+        assert deployment.id == 'deployment-id'
+        assert deployment.url = 'test-deployment.now.sh'
+        assert deployment.version == 2
+        assert deployment.name == 'test-deployment'
+        assert deployment.target == 'production'
+        assert deployment.meta == {}
+        assert deployment.plan == 'pro'
+        assert deployment.public == False
+        
 
         assert [
             call(
