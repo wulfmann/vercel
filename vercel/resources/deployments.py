@@ -20,6 +20,7 @@ class Deployment(Resource):
     self.type = type
     self.url = url
     self.user_id = user_id
+    self.version = version
     self.regions = regions
     self.functions = functions
     self.routes = routes
@@ -53,7 +54,8 @@ class Deployment(Resource):
       functions=data.get('functions'),
       routes=data.get('routes'),
       env=data.get('env', []),
-      build=data.get('build', { 'env': {} })
+      build=data.get('build', { 'env': {} }),
+      version=data.get('version')
     )
     
     @classmethod

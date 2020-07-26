@@ -2,7 +2,7 @@
   "id": "deployment-id",
   "url": "test-deployment.now.sh",
   "name": "test-deployment",
-  "version": 2
+  "version": 2,
   "meta": {},
   "plan": "pro",
   "public": false,
