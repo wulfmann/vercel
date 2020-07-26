@@ -26,6 +26,8 @@ class TestDeployment(TestCase):
         deployment = vercel.Deployment.get('deployment-id')
 
         assert isinstance(deployment, vercel.Deployment)
+        
+        assert deployment.target == None
 
         assert [
             call(
