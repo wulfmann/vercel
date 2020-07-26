@@ -82,7 +82,7 @@ class TestDeployment(TestCase):
         MockResponse(response=json.loads(mock_v12_cancel.open().read())),
       ]
       
-      deployment = vercel.Deployment.get('test-deployment')
+      deployment = vercel.Deployment.get('deployment-id')
       deployment.cancel()
       
       assert [
@@ -118,7 +118,7 @@ class TestDeployment(TestCase):
         MockResponse(response={}, status_code=204)
       ]
       
-      deployment = vercel.Deployment.get('test-deployment')
+      deployment = vercel.Deployment.get('deployment-id')
       deployment.delete()
       
       assert [
