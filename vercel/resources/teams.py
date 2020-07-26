@@ -26,6 +26,7 @@ class Team(Resource):
           raise Exception('you must specify one of name or id')
           
         resource = f"/teams"
+        params = {}
         
         if slug is not None:
           params['slug'] = slug
