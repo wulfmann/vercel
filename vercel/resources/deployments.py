@@ -101,7 +101,7 @@ class Deployment(Resource):
     return self.make_request(
       method='DELETE',
       resource=resource,
-      api_version=api_version
+      api_version=api_version,
       query_string=params
     )
     

@@ -98,7 +98,7 @@ class TestDeployment(TestCase):
                 }
             ),
             call(
-                method='DELETE',
+                method='PATCH',
                 url='https://api.vercel.com/v12/now/deployments/deployment-id/cancel',
                 headers={
                     'Content-Type': 'application/json',
