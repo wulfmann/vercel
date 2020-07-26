@@ -41,7 +41,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Transfer in a  Domain|❌||
 |Verify Domain|❌||
 |Get Domain|✅||
-|Delete Domain|❌||
+|Delete Domain|✅||
 |Check Domain Availability|❌||
 |Check Domain Price|❌||
 |Purchase Domain|❌||
