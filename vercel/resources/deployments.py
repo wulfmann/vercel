@@ -1,7 +1,7 @@
 from vercel.resources.base import Resource
 
 class Deployment(Resource):
-  def __init__(self, aliases, alias_assigned, alias_error, created_at, created_in, deployment_hostname, forced, id, meta, plan, private, ready_state, requested_at, target, team_id, type, url, user_id, regions, functions, routes, env, build, version):
+  def __init__(self, aliases, alias_assigned, alias_error, created_at, created_in, deployment_hostname, forced, id, meta, plan, private, ready_state, requested_at, target, team_id, type, url, user_id, regions, functions, routes, env, build, version, name):
     self.aliases = aliases
     self.alias_assigned = alias_assigned
     self.alias_error = alias_error
@@ -27,6 +27,7 @@ class Deployment(Resource):
     self.env = env
     self.build = build
     self.version = version
+    self.name = name
 
   @classmethod
   def from_data(cls, data):
@@ -56,7 +57,8 @@ class Deployment(Resource):
       routes=data.get('routes'),
       env=data.get('env', []),
       build=data.get('build', { 'env': {} }),
-      version=data.get('version')
+      version=data.get('version'),
+      name=data.get('name')
     )
     
   @classmethod
