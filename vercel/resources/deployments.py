@@ -73,7 +73,7 @@ class Deployment(Resource):
       if deployment_id is not None and deployment_url is not None:
         raise Exception('only one of deployment_id or deployment_url can be specified')
         
-      resource = '/deployments'
+      resource = '/now/deployments'
       if deployment_id is not None:
         resource += f'/{deployment_id}'
           
@@ -90,9 +90,26 @@ class Deployment(Resource):
 
       return cls.from_data(res)
 
-  def delete(self, api_version='v11'):
-    self.make_request(
+  def delete(self, url=None, api_version='v11'):
+    resource = f'/now/deployments/{self.id}'
+    params = {}
+
+    if url is not None:
+      resource = '/now/deployments/remove'
+      params['url'] = url
+
+    return self.make_request(
       method='DELETE',
-      resource=f'/deployments/{self.id}',
+      resource=resource,
+      api_version=api_version
+      query_string=params
+    )
+    
+  def cancel(self, api_version='v12'):
+    res = self.make_request(
+      method='PATCH',
+      resource=f'/now/deployments/{self.id}/cancel',
       api_version=api_version
     )
+    # todo: refactor to update object rather than create a new one
+    return Deployment.from_data(res)
