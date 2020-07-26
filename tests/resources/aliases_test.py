@@ -53,7 +53,7 @@ class TestAliases(TestCase):
     @patch('requests.request')
     def test_get_v2(self, mock_request):
         mock_v2_get = Path('tests/fixtures/responses/aliases/v2/get.json')
-        mock_request.return_value = MockResponse(response=json.loads(mock_v4_get.open().read()))
+        mock_request.return_value = MockResponse(response=json.loads(mock_v2_get.open().read()))
 
         alias = vercel.Alias.get('test-alias')
 
