@@ -36,7 +36,7 @@ class TestTeams(TestCase):
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
-                data={
+                json={
                   'slug': 'my-team'
                 },
                 params={
@@ -110,7 +110,7 @@ class TestTeams(TestCase):
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
-                data={
+                json={
                   'slug': 'new-slug',
                   'name': 'New Name'
                 },
