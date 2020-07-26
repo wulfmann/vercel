@@ -89,11 +89,11 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|Create Team|❌||
-|Delete Team|❌||
+|Create Team|✅||
+|Delete Team|✅||
 |List Teams|❌||
-|Get Team|❌||
-|Update Team|❌||
+|Get Team|✅||
+|Update Team|✅||
 |List Team Members|❌||
 |Invite User To Team|❌||
 |Change User Role Or Status|❌||
