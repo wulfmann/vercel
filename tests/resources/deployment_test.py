@@ -72,3 +72,41 @@ class TestDeployment(TestCase):
                 }
             )
         ] == mock_request.mock_calls
+        
+    @patch('requests.request')
+    def test_delete_v11(self, mock_request):
+      mock_v11_get = Path('tests/fixtures/responses/deployments/v11/get.json')
+      mock_request.side_effect = [
+        MockResponse(response=json.loads(mock_v11_get.open().read())),
+        MockResponse(response={}, status_code=204)
+      ]
+      
+      deployment = vercel.Deployment.get('test-deployment')
+      deployment.delete()
+      
+      assert [
+            call(
+                method='GET',
+                url='https://api.vercel.com/v11/deployments/deployment-id',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            ),
+            call(
+                method='DELETE',
+                url='https://api.vercel.com/v11/deployments/deployment-id',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            )
+        ] == mock_request.mock_calls
+      
+      

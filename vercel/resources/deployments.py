@@ -89,3 +89,10 @@ class Deployment(Resource):
       )
 
       return cls.from_data(res)
+
+  def delete(self, api_version='v11'):
+    self.make_request(
+      method='DELETE',
+      resource=f'/deployments/{self.id}',
+      api_version=api_version
+    )
