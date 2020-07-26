@@ -55,9 +55,15 @@ class TestCertificates(TestCase):
         mock_v3_get = Path('tests/fixtures/responses/certificates/v3/get.json')
         mock_request.return_value = MockResponse(response=json.loads(mock_v3_get.open().read()))
 
-        alias = vercel.Certificate.get('certificate-id')
+        cert = vercel.Certificate.get('certificate-id')
 
-        assert isinstance(alias, vercel.Certificate)
+        assert isinstance(cert, vercel.Certificate)
+        
+        assert cert.id == 'certificate-id'
+        assert cert.cns == ['wow.example.com']
+        assert cert.created == '2016-08-23T18:13:09.773Z'
+        assert cert.expiration == '2016-12-16T16:00:00.000Z'
+        assert cert.auto_renew == True
         
         assert [
             call(
