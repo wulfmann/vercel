@@ -59,7 +59,7 @@ class Certificate(Resource):
     def delete(self, api_version='v2'):
         return self.make_request(
             method='DELETE',
-            resource=f'/now/aliases/{self.id}',
+            resource=f'/now/certs/{self.id}',
             api_version=api_version
         )
 
