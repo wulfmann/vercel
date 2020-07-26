@@ -93,7 +93,7 @@ class TestCertificates(TestCase):
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
-                data={
+                json={
                   'domains': ['test.com']
                 },
                 params={
@@ -120,7 +120,7 @@ class TestCertificates(TestCase):
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
-                data={
+                json={
                   'ca': 'ca',
                   'cert': 'cert',
                   'key': 'key'
