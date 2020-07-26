@@ -49,6 +49,15 @@ class TestDeployment(TestCase):
         }
         assert deployment.routes == None
         assert deployment.env == []
+        assert deployment.build == {
+          'env': {}
+        }
+        assert deployment.aliases == [
+          "test.com",
+          "project.my-team.now.sh"
+        ]
+        assert deployment.alias_error == None
+        assert deployment.alias_assigned == True
 
         assert [
             call(
