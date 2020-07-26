@@ -35,7 +35,20 @@ class TestDeployment(TestCase):
         assert deployment.meta == {}
         assert deployment.plan == 'pro'
         assert deployment.public == False
-        
+        assert deployment.owner_id == 'owner-id'
+        assert deployment.ready_state == 'QUEUED'
+        assert deployment.created_at == 1540257589405
+        assert deployment.created_in == 'sfo1'
+        assert deployment.regions == [
+          'sfo1'
+        ]
+        assert deployment.functions == {
+          "api/test.js": {
+            "memory": 3008
+          }
+        }
+        assert deployment.routes == None
+        assert deployment.env == []
 
         assert [
             call(
