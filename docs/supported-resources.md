@@ -17,7 +17,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Create Deployment|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/create-a-new-deployment)|
 |Upload Deployment Files|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/upload-deployment-files)|
 |List Deployments|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/list-deployments)|
-|Get Deployment|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/get-a-single-deployment)|
+|Get Deployment|✅|[Vercel](https://vercel.com/docs/api#endpoints/deployments/get-a-single-deployment)|
 |Delete Deployment|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/delete-a-deployment)|
 |List DeploymentFiles|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/list-deployment-files)|
 |Get Single File Contents|❌|[Vercel](https://vercel.com/docs/api#endpoints/deployments/get-single-file-contents)|

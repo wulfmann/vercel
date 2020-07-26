@@ -1,0 +1,33 @@
+{
+  "id": "deployment-id",
+  "url": "test-deployment.now.sh",
+  "name": "test-deployment",
+  "version": 2,
+  "meta": {},
+  "plan": "pro",
+  "public": false,
+  "ownerId": "owner-id",
+  "readyState": "QUEUED",
+  "createdAt": 1540257589405,
+  "createdIn": "sfo1",
+  "regions": [
+    "sfo1"
+  ],
+  "functions": {
+    "api/test.js": {
+      "memory": 3008
+    }
+  },
+  "routes": null,
+  "env": [],
+  "build": {
+    "env": []
+  },
+  "target": "production",
+  "alias": [
+    "test.com",
+    "project.my-team.now.sh"
+  ],
+  "aliasError": null,
+  "aliasAssigned": true
+}

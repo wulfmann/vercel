@@ -5,25 +5,19 @@
 ### Get a Project
 
 ```python
-vercel.Project.get(
-  name='my-project'
-)
+vercel.Project.get('my-project')
 ```
 
 ### Create a Project
 
 ```python
-vercel.Project.create(
-  name='my-project'
-)
+vercel.Project.create('my-project')
 ```
 
 ### Update a Project
 
 ```python
-project = vercel.Project.create(
-  name='my-project'
-)
+project = vercel.Project.create('my-project')
 
 project.update(
   name='new-project'
@@ -33,9 +27,7 @@ project.update(
 ### Delete a Project
 
 ```python
-project = vercel.Project.create(
-  name='my-project'
-)
+project = vercel.Project.create('my-project')
 
 project.delete()
 ```
@@ -43,9 +35,7 @@ project.delete()
 ### Get Environment Variables
 
 ```python
-project = vercel.Project.create(
-  name='my-project'
-)
+project = vercel.Project.create('my-project')
 
 project.get_environment_variables()
 ```
@@ -67,13 +57,9 @@ project.create_environment_variable(
 ```python
 domain = vercel.Domain.get('test.com')
 
-project = vercel.Project.create(
-  name='my-project'
-)
+project = vercel.Project.create('my-project')
 
-project.add_domain(
-  domain=domain.id
-)
+project.add_domain(domain.id)
 ```
 
 ### Redirect a Domain
@@ -81,9 +67,7 @@ project.add_domain(
 ```python
 domain = vercel.Domain.get('test.com')
 
-project = vercel.Project.create(
-  name='my-project'
-)
+project = vercel.Project.create('my-project')
 
 project.redirect_domain(
   domain='www.test.com',
@@ -96,11 +80,7 @@ project.redirect_domain(
 ```python
 domain = vercel.Domain.get('test.com')
 
-project = vercel.Project.create(
-  name='my-project'
-)
+project = vercel.Project.create('my-project')
 
-project.remove_domain(
-  domain=domain.id
-)
+project.remove_domain(domain.id)
 ```
