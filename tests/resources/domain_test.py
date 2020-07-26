@@ -125,17 +125,14 @@ class TestDomain(TestCase):
         
         assert [
             call(
-                method='POST',
-                url='https://api.vercel.com/v4/domains/',
+                method='GET',
+                url='https://api.vercel.com/v4/domains/example.com',
                 headers={
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer fake-api-key'
                 },
                 params={
                     'teamId': 'fake-team-id'
-                },
-                json={
-                    'name': 'example.com'
                 }
             )
         ] == mock_request.mock_calls
