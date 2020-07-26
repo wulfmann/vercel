@@ -21,7 +21,7 @@ class Alias(Resource):
       )
       
     @classmethod
-    def assign_to_domain(cls, deployment_id, alias, redirect=None, api_version='v2':
+    def assign_to_domain(cls, deployment_id, alias, redirect=None, api_version='v2'):
       data ={
         'alias': alias
       }
