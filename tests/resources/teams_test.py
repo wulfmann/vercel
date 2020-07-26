@@ -18,6 +18,107 @@ class TestTeams(TestCase):
         vercel.team_id = None
 
     @patch('requests.request')
+    def test_create_v1(self, mock_request):
+        mock_request.return_value = MockResponse(response={
+          'id': 'team-id'
+        })
+
+        team = vercel.Team.get('my-team')
+
+        assert isinstance(team, vercel.Team)
+        assert team.id == 'team-id'
+        
+        assert [
+            call(
+                method='POST',
+                url='https://api.vercel.com/v1/teams',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                data={
+                  'slug': 'my-team'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            )
+        ] == mock_request.mock_calls
+        
+    @patch('requests.request')
+    def test_delete_v1(self, mock_request):
+        mock_v4_get = Path('tests/fixtures/responses/teams/v1/get.json')
+        mock_request.return_value = MockResponse(response=json.loads(mock_v4_get.open().read()))
+
+        team = vercel.Team.get('my-team')
+        team.delete()
+        
+        assert [
+            call(
+                method='GET',
+                url='https://api.vercel.com/v1/teams/my-team',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            ),
+            call(
+                method='DELETE',
+                url='https://api.vercel.com/v1/teams/my-team',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            )
+        ] == mock_request.mock_calls
+        
+    @patch('requests.request')
+    def test_update_v1(self, mock_request):
+        mock_v4_get = Path('tests/fixtures/responses/teams/v1/get.json')
+        mock_request.return_value = MockResponse(response=json.loads(mock_v4_get.open().read()))
+
+        team = vercel.Team.get('my-team')
+        team.update(
+          slug='new-slug',
+          name='New Name'
+        )
+        
+        assert [
+            call(
+                method='GET',
+                url='https://api.vercel.com/v1/teams/my-team',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            ),
+            call(
+                method='PATCH',
+                url='https://api.vercel.com/v1/teams/my-team',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                data={
+                  'slug': 'new-slug',
+                  'name': 'New Name'
+                },
+                params={
+                    'teamId': 'fake-team-id'
+                }
+            )
+        ] == mock_request.mock_calls
+        
+    @patch('requests.request')
     def test_get_v1(self, mock_request):
         mock_v4_get = Path('tests/fixtures/responses/teams/v1/get.json')
         mock_request.return_value = MockResponse(response=json.loads(mock_v4_get.open().read()))

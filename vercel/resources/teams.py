@@ -62,3 +62,16 @@ class DnsRecord(Resource):
             resource=f'/teams/{self.id}',
             api_version=api_version
         )
+
+    def update(self, slug, name, api_version='v1'):
+        res = self.make_request(
+            method='PATCH',
+            resource=f'/teams/{self.id}',
+            data={
+              'slug': slug,
+              'name': name
+            },
+            api_version=api_version
+        )
+        # todo refactor this to update current object instead of creating a new one
+        return Team.from_data(res)
