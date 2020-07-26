@@ -79,7 +79,7 @@ class Deployment(Resource):
         method='GET',
         resource=resource,
         api_version=api_version,
-        params=params
+        query_string=params
       )
 
       return cls.from_data(res)
