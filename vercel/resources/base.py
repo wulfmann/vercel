@@ -4,7 +4,7 @@ from vercel.exceptions import VercelError
 
 class Resource:
     @classmethod
-    def make_request(cls, method, resource, base_url='api.vercel.com', data=None, query_string={}, api_key=None, team_id=None):
+    def make_request(cls, method, resource, api_version=None, base_url='api.vercel.com', data=None, query_string={}, api_key=None, team_id=None):
         if api_key is None:
             api_key = vercel.api_key
 
@@ -13,9 +13,12 @@ class Resource:
 
         if api_key is None:
             raise Exception(f'api_key was not found')
+            
+        if api_version is None:
+            raise Exception(f'api_version was not found')
 
         try:
-            url = f'https://{base_url}{resource}'
+            url = f'https://{base_url}/{api_version}{resource}'
 
             kwargs = dict(
                 method=method,
