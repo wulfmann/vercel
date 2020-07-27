@@ -7,3 +7,4 @@ from vercel.resources.aliases import Alias
 from vercel.resources.certificates import Certificate
 from vercel.resources.secrets import Secret
 from vercel.resources.user import User
+from vercel.resources.base import Resource

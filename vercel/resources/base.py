@@ -50,3 +50,75 @@ class Resource:
             return response
         except Exception as e:
             raise e
+
+    @classmethod
+    def make_paginated_request(cls, resource, response_key, headers={}, params={}, api_key=None, team_id=None, results=[]):
+        if api_key is None:
+            api_key = vercel.api_key
+
+        if api_key is None:
+            raise Exception(f'api_key was not found')
+
+        # Add Authentication Headers
+        headers.update({
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {vercel.api_key}'
+        })
+
+        if team_id is None:
+            team_id = vercel.team_id
+
+        # Add Team ID if set
+        if team_id is not None:
+            params.update({
+                'teamId': team_id
+            })
+
+        print(params)
+        print(requests.get)
+
+        base_url='api.vercel.com'
+
+        try:
+            url = f'https://{base_url}{resource}'
+
+            response = requests.get(
+                url,
+                headers=headers,
+                params=params
+            ).json()
+
+            # Handle Errors
+            if 'error' in response:
+                raise VercelError(
+                    code=response['error']['code'],
+                    message=response['error']['message']
+                )
+
+            # Append result
+            records = response.get(response_key)
+            if records is None:
+                raise Exception(f'failed to find response_key in response')
+            results += records
+
+            # Handle Pagination
+            if 'pagination' in response:
+                next_since = response['pagination'].get('next')
+                if next_since is None:
+                    raise ValueError('unable to get next value for pagination')
+
+                params.update({ 'since': next_since })
+
+                return cls.make_paginated_request(
+                    resource=resource,
+                    response_key=response_key,
+                    headers=headers,
+                    params=params,
+                    api_key=api_key,
+                    team_id=team_id,
+                    results=results
+                )
+
+            return results
+        except Exception as e:
+            raise e
