@@ -4,11 +4,11 @@
 
 ### Create an Issue
 
-[Create an issue]() and describe your idea and proposed changes.
+[Create an issue](https://github.com/wulfmann/vercel/issues/new/choose) and describe your idea and proposed changes.
 
 ### Fork the repo
 
-[Fork the repo]() into your own account and create a new branch.
+Fork the repo into your own account and create a new branch.
 
 ### Do your thing
 
@@ -22,13 +22,13 @@ Commit your changes to your new branch.
 
 ### Create a Pull Request
 
-When you are ready, [Create a PR]() for review.
+When you are ready, Create a PR for review.
 
 ## Development
 
-This project uses [poetry]() for dependency management and package build/publishing.
+This project uses [poetry](https://python-poetry.org/) for dependency management and package build/publishing.
 
-You can follow [their instructions]() on installation.
+You can follow [their instructions](https://python-poetry.org/docs/#installation) on installation.
 
 ### Install Dependencies
 
@@ -50,7 +50,7 @@ poetry run black
 
 ### Build / Publish
 
-Make sure you bump the version of the package according to [semver](). Then run:
+Make sure you bump the version of the package according to [semver](https://semver.org/). Then run:
 
 ```bash
 poetry publish --build

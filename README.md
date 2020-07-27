@@ -43,6 +43,8 @@ vercel.Domain.get('mydomain.com')
 
 See the [support table](/docs/supported-resources.md) for an up-to-date list of the API resources this library supports.
 
+If you'd like to see a resource support prioritized, [open an issue](https://github.com/wulfmann/vercel/issues/new/choose).
+
 ## Contributing
 
 Want to contribute or found a bug to fix?
