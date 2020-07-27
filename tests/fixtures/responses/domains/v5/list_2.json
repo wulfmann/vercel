@@ -1,0 +1,36 @@
+{
+    "domains": [
+        {
+            "id": "EmTbe5CEJyTk2yVAHBUWy4A3sRusca3GCwRjTC1bpeVnt1",
+            "name": "example.com",
+            "serviceType": "external",
+            "nsVerifiedAt": null,
+            "txtVerifiedAt": null,
+            "cdnEnabled": false,
+            "createdAt": 1544658552174,
+            "boughtAt": null,
+            "verificationRecord": "YMc9dEJKbAncYtTqSH8dp1j5NXycfEzyjkzBJ3m3UGwR43",
+            "verified": true,
+            "nameservers": [
+                "ns1.nameserver.net",
+                "ns2.nameserver.net"
+            ],
+            "intendedNameservers": [
+                "a.zeit-world.net",
+                "b.zeit-world.co.uk",
+                "e.zeit-world.org",
+                "f.zeit-world.com"
+            ],
+            "creator": {
+                "id": "ZspSRT4ljIEEmMHgoDwKWDei",
+                "username": "zeit_user",
+                "email": "demo@example.com"
+            }
+        }
+    ],
+    "pagination": {
+        "count": 1,
+        "next": 1544658552175,
+        "prev": 1544658552174
+    }
+}

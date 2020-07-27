@@ -36,7 +36,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|List Domains|❌||
+|List Domains|✅||
 |Create Domain|✅||
 |Transfer in a  Domain|❌||
 |Verify Domain|❌||
