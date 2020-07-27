@@ -7,7 +7,7 @@ from tests.helpers.response import MockResponse
 
 import vercel
 
-class TestDomain(TestCase):
+class TestDomains(TestCase):
 
     def setUp(self):
         vercel.api_key = 'fake-api-key'
@@ -246,6 +246,99 @@ class TestDomain(TestCase):
                     'name': '',
                     'type': 'TXT',
                     'value': 'something'
+                }
+            )
+        ] == mock_request.mock_calls
+
+    @patch('requests.request')
+    def test_check_availability_v4(self, mock_request):
+        mock_v4_check_availability = Path('tests/fixtures/responses/domains/v4/check_availability.json')
+        
+        mock_request.side_effect = [
+            MockResponse(response=json.loads(mock_v4_check_availability.open().read()))
+        ]
+
+        vercel.Domain.check_availability('test.com')
+
+        assert [
+            call(
+                method='GET',
+                url='https://api.vercel.com/v4/domains/status',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id',
+                    'name': 'test.com'
+                }
+            )
+        ] == mock_request.mock_calls
+
+    @patch('requests.request')
+    def test_check_price_v4(self, mock_request):
+        mock_v4_check_price = Path('tests/fixtures/responses/domains/v4/check_price.json')
+        
+        mock_request.side_effect = [
+            MockResponse(response=json.loads(mock_v4_check_price.open().read()))
+        ]
+
+        vercel.Domain.check_price('test.com')
+
+        assert [
+            call(
+                method='GET',
+                url='https://api.vercel.com/v4/domains/price',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id',
+                    'name': 'test.com'
+                }
+            )
+        ] == mock_request.mock_calls
+
+    @patch('requests.request')
+    def test_purchase_v4(self, mock_request):
+        mock_v4_check_price = Path('tests/fixtures/responses/domains/v4/check_price.json')
+        mock_v4_purchase = Path('tests/fixtures/responses/domains/v4/purchase.json')
+        
+        mock_request.side_effect = [
+            MockResponse(response=json.loads(mock_v4_check_price.open().read())),
+            MockResponse(response=json.loads(mock_v4_purchase.open().read()))
+        ]
+
+        checked = vercel.Domain.check_price('test.com')
+        checked.purchase()
+
+        assert [
+            call(
+                method='GET',
+                url='https://api.vercel.com/v4/domains/price',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                params={
+                    'teamId': 'fake-team-id',
+                    'name': 'test.com'
+                }
+            ),
+            call(
+                method='POST',
+                url='https://api.vercel.com/v4/domains/buy',
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fake-api-key'
+                },
+                json={
+                    'name': 'test.com',
+                    'expectedPrice': 17
+                },
+                params={
+                    'teamId': 'fake-team-id'
                 }
             )
         ] == mock_request.mock_calls
