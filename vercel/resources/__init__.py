@@ -5,3 +5,4 @@ from vercel.resources.deployments import Deployment
 from vercel.resources.teams import Team
 from vercel.resources.aliases import Alias
 from vercel.resources.certificates import Certificate
+from vercel.resources.secrets import Secret

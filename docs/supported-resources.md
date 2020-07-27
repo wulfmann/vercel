@@ -80,10 +80,10 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Operation|Supported|Reference|
 |---------|---------|-------------|
 |List Secrets|❌||
-|Get Secret|❌||
-|Create Secret|❌||
-|Change Secret Name|❌||
-|Delete Secret|❌||
+|Get Secret|✅||
+|Create Secret|✅||
+|Change Secret Name|✅||
+|Delete Secret|✅||
 
 ### Teams
 
