@@ -78,3 +78,58 @@ class Team(Resource):
         )
         # todo refactor this to update current object instead of creating a new one
         return Team.from_data(res)
+
+    def invite_user(self, email, role, api_version='v1'):
+      # todo validate role
+      return self.make_request(
+          method='POST',
+          resource=f'/teams/{self.id}/members',
+          data={
+            'email': email,
+            'role': role
+          },
+          api_version=api_version
+      )
+
+    def update_user(self, user_id, role, confirmed=None, api_version='v1'):
+      # todo validate role
+      data = {
+        'role': role
+      }
+
+      if confirmed is not None:
+        data['confirmed'] = confirmed
+
+      return self.make_request(
+          method='PATCH',
+          resource=f'/teams/{self.id}/members/{user_id}',
+          data=data,
+          api_version=api_version
+      )
+
+
+    def request_to_join(self, origin, commit_id=None, repo_id=None, api_version='v1'):
+      # todo validate origin
+      data = {
+        'origin': origin
+      }
+
+      if commit_id is not None:
+        data['commitId'] = commit_id
+
+      if repo_id is not None:
+        data['repoId'] = repo_id
+
+      return self.make_request(
+          method='POST',
+          resource=f'/teams/{self.id}/request',
+          data=data,
+          api_version=api_version
+      )
+
+    def remove_user(self, user_id, api_version='v1'):
+      return self.make_request(
+          method='DELETE',
+          resource=f'/teams/{self.id}/members/{user_id}',
+          api_version=api_version
+      )

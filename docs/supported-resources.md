@@ -95,11 +95,11 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Get Team|✅||
 |Update Team|✅||
 |List Team Members|❌||
-|Invite User To Team|❌||
-|Change User Role Or Status|❌||
-|Request To Join Team|❌||
+|Invite User To Team|✅||
+|Change User Role Or Status|✅||
+|Request To Join Team|✅||
 |Check Status Of Join Request|❌||
-|Remove User From Team|❌||
+|Remove User From Team|✅||
 
 ### Projects
 
