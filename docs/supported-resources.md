@@ -110,13 +110,13 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Get Project|✅||
 |List Projects|❌||
 |Update Project|❌||
-|Delete Project|❌||
+|Delete Project|✅||
 |List Project Environment Variables|❌||
-|Create Project Environment Variable|❌||
-|Delete Project Environment Variable|❌||
-|Add Domain To Project|❌||
-|Set Redirect For Domain|❌||
-|Delete Production Domain For Project|❌||
+|Create Project Environment Variable|✅||
+|Delete Project Environment Variable|✅||
+|Add Domain To Project|✅||
+|Set Redirect For Domain|✅||
+|Delete Production Domain For Project|✅||
 
 ### Authentication
 

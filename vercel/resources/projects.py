@@ -123,84 +123,94 @@ class Project(Resource):
         )
         return cls.from_data(res)
         
-    @classmethod
-    def list(cls, api_version='v4'):
-        res = cls.make_request(
-          method='GET',
-          resource=f'/projects',
-          api_version=api_version
-        )
-        # todo pagination
-        return cls.from_data(res)
-        
-    def update(self, framework=None, public_source=None, build_command=None, dev_command=None, output_directory=None, root_directory=None, api_version='v2'):
-        res = cls.make_request(
-          method='PATCH',
-          resource=f'/projects/{self.id}',
-          data={}
-        )
-        
-        self.update_from_data(res)
-        
-        return self
-        
-    def delete(self, api_version='v2'):
-        cls.make_request(
+    def delete(self, api_version='v1'):
+        return self.make_request(
           method='DELETE',
           resource=f'/projects/{self.id}',
           api_version=api_version
         )
         
-    def get_environment_variables(self, api_version='v5'):
-        res = cls.make_request(
-          method='GET',
-          resource=f'/projects/{self.id}/env',
-          api_version=api_version
-        )
+    # def get_environment_variables(self, api_version='v5'):
+    #     res = cls.make_request(
+    #       method='GET',
+    #       resource=f'/projects/{self.id}/env',
+    #       api_version=api_version
+    #     )
         
-        return res
+    #     return res
         
     def create_environment_variable(self, key, value, target, api_version='v4'):
         # validate target
 
-        res = cls.make_request(
+        res = self.make_request(
           method='POST',
           resource=f'/projects/{self.id}/env',
           data={
             'key': key,
             'value': value,
             'target': target
-          }
+          },
+          api_version=api_version
         )
         
         return EnvironmentVariable.from_data(self.id, res)
-        
-    def add_domain(self, domain, redirect=None, api_version='v1'):
 
-        res = cls.make_request(
+    def delete_environment_variable(self, key, target, api_version='v4'):
+        # validate target
+
+        res = self.make_request(
+          method='DELETE',
+          resource=f'/projects/{self.id}/env/{key}',
+          query_string={
+            'target': target
+          },
+          api_version=api_version
+        )
+
+        return EnvironmentVariable.from_data(self.id, res)
+
+    def add_domain(self, domain, redirect=None, api_version='v1'):
+        data = {
+            'domain': domain
+        }
+
+        if redirect is not None:
+          data['redirect'] = redirect
+        
+        res = self.make_request(
           method='POST',
-          resource=f'/projects/{self.id}/alias'
+          resource=f'/projects/{self.id}/alias',
+          data=data,
+          api_version=api_version
         )
         
-        return
+        return res
         
     def redirect_domain(self, domain, redirect=None, api_version='v1'):
+        data = {
+            'domain': domain
+        }
 
-        res = cls.make_request(
+        if redirect is not None:
+          data['redirect'] = redirect
+
+        res = self.make_request(
           method='PATCH',
-          resource=f'/projects/{self.id}/alias'
+          data=data,
+          resource=f'/projects/{self.id}/alias',
+          api_version=api_version
         )
         
         return
         
     def remove_domain(self, domain, api_version='v1'):
-
-        res = cls.make_request(
+        res = self.make_request(
           method='DELETE',
           resource=f'/projects/{self.id}/alias',
-          params={
+          query_string={
             'domain': domain
-          }
+          },
+          api_version=api_version
         )
         
-        return
+        return res

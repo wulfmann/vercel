@@ -1,0 +1,17 @@
+[
+    {
+        "createdAt": 1571138625066,
+        "domain": "foobar.com",
+        "target": "PRODUCTION",
+        "configuredBy": "A",
+        "configuredChangedAt": 1571945629322
+    },
+    {
+        "createdAt": 1571921061602,
+        "domain": "www.foobar.com",
+        "target": "PRODUCTION",
+        "redirect": "foobar.com",
+        "configuredBy": "CNAME",
+        "configuredChangedAt": 1571945629501
+    }
+]
