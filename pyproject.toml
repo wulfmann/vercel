@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vercel"
-version = "0.1.4"
+version = "0.1.5"
 description = "Vercel SDK"
 authors = ["Joe Snell <joepsnell@gmail.com>"]
 license = "MIT"
