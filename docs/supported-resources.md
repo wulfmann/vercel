@@ -99,7 +99,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Change User Role Or Status|✅||
 |Request To Join Team|✅||
 |Check Status Of Join Request|❌||
-|Remove User From Team|❌||
+|Remove User From Team|✅||
 
 ### Projects
 
