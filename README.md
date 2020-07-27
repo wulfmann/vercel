@@ -20,8 +20,6 @@ import vercel
 vercel.api_key = 'xxxxxx'
 
 user = vercel.User.get()
-
-print(user.name) # example
 ```
 
 ### Team Resources
