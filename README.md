@@ -1,6 +1,8 @@
 # Vercel Python SDK
 
-## 🚨 This library is currently in alpha. Not many resources are supported and the core API is subject to change.
+## 🚨 This library is currently in beta 🚨
+
+Most resources are supported, but some are missing. You can check the [support table](/docs/supported-resources.md) for an up-to-date list.
 
 ## Install
 
@@ -34,9 +36,7 @@ import vercel
 vercel.api_key = 'xxxxxx'
 vercel.team_id = 'my-team
 
-vercel.Domain.create(
-    domain_name='mydomain.com'
-)
+vercel.Domain.get('mydomain.com')
 ```
 
 ## Resource Support
