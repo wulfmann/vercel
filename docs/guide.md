@@ -43,9 +43,8 @@ import vercel
 
 vercel.api_token = 'xxx'
 
-vercel.Request.make_request(
-    method='GET',
-    api_version='v2',
-    resource='/domains/domain-id'
+vercel.Resource.make_paginated_request(
+    resource='/v2/domains/domain-id',
+    response_key='domains'
 )
 ```
