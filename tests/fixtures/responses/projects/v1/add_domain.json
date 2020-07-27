@@ -1,0 +1,9 @@
+[
+    {
+        "createdAt": 1562119110860,
+        "domain": "foobar.com",
+        "target": "PRODUCTION",
+        "configuredBy": "A",
+        "configuredChangedAt": 1562119110860
+    }
+]
