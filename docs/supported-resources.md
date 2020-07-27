@@ -42,9 +42,9 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Verify Domain|❌||
 |Get Domain|✅||
 |Delete Domain|✅||
-|Check Domain Availability|❌||
-|Check Domain Price|❌||
-|Purchase Domain|❌||
+|Check Domain Availability|✅||
+|Check Domain Price|✅||
+|Purchase Domain|✅||
 
 ### DNS
 

@@ -1,6 +1,26 @@
 from vercel.resources.base import Resource
 from vercel.resources.dns import DnsRecord
 
+class Price(Resource):
+  def __init__(self, name, price, period):
+    self.name = name
+    self.price = price
+    self.period = period
+
+  @classmethod
+  def from_data(cls, name, data):
+    return cls(
+      name=name,
+      price=data['price'],
+      period=data['period']
+    )
+
+  def purchase(self, api_version='v4'):
+    return Domain.purchase(
+      name=self.name,
+      expected_price=self.price
+    )
+
 class Creator:
   def __init__(self, id, username, email):
     self.id = id
@@ -87,6 +107,46 @@ class Domain(Resource):
       )
       
       return cls.from_data(res)
+
+    @classmethod
+    def check_availability(cls, name, api_version='v4'):
+      res = cls.make_request(
+        method='GET',
+        resource=f'/domains/status',
+        query_string={
+          'name': name
+        },
+        api_version=api_version
+      )
+      
+      return res
+
+    @classmethod
+    def check_price(cls, name, api_version='v4'):
+      res = cls.make_request(
+        method='GET',
+        resource=f'/domains/price',
+        query_string={
+          'name': name
+        },
+        api_version=api_version
+      )
+      
+      return Price.from_data(name, res)
+
+    @classmethod
+    def purchase(cls, name, expected_price, api_version='v4'):
+      res = cls.make_request(
+        method='POST',
+        resource=f'/domains/buy',
+        data={
+          'name': name,
+          'expectedPrice': expected_price
+        },
+        api_version=api_version
+      )
+
+      return res
 
     def delete(self, api_version='v4'):
       return self.make_request(
