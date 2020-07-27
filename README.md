@@ -37,9 +37,13 @@ vercel.team_id = 'my-team
 vercel.Domain.get('mydomain.com')
 ```
 
+## Guide
+
+You can view more information on working with this library in [the guide](/docs/guide).
+
 ## Resource Support
 
-See the [support table](/docs/supported-resources.md) for an up-to-date list of the API resources this library supports.
+See the [support table](/docs/supported-resources) for an up-to-date list of the API resources this library supports.
 
 If you'd like to see a resource support prioritized, [open an issue](https://github.com/wulfmann/vercel/issues/new/choose).
 
