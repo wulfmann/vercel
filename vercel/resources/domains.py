@@ -123,7 +123,6 @@ class Domain(Resource):
             api_token=api_token,
             team_id=team_id,
         )
-        print(res)
         return res
 
     @classmethod
@@ -202,3 +201,11 @@ class Domain(Resource):
 
     def get_dns_record(self, record_id):
         return DnsRecord.get(domain_name=self.name, record_id=record_id)
+
+    def list_records(self, limit=None, since=None, until=None):
+        return DnsRecord.list_records(
+            domain_name=self.name,
+            limit=limit,
+            since=since,
+            until=until
+        )
