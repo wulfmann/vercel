@@ -155,3 +155,32 @@ class Deployment(Resource):
         )
         # todo: refactor to update object rather than create a new one
         return Deployment.from_data(res)
+
+    def list_aliases(
+        self,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v2",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        res = self.make_paginated_request(
+            resource=f"/{api_version}/now/deployments/{self.id}/aliases",
+            response_key="aliases",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res

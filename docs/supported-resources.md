@@ -68,7 +68,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|List Aliases|❌||
+|List Aliases|✅||
 |Get Alias|✅||
 |Delete Alias|✅||
 |Purge Alias|✅||

@@ -70,3 +70,57 @@ class TestAliases(TestCase):
                 params={"teamId": "fake-team-id"},
             )
         ] == mock_request.mock_calls
+
+    @patch("requests.request")
+    def test_list_aliases_v3(self, mock_request):
+        mock_v3_list_one = json.loads(
+            Path("tests/fixtures/responses/aliases/v3/list_1.json").open().read()
+        )
+        mock_v3_list_two = json.loads(
+            Path("tests/fixtures/responses/aliases/v3/list_2.json").open().read()
+        )
+        mock_v3_list_three = json.loads(
+            Path("tests/fixtures/responses/aliases/v3/list_3.json").open().read()
+        )
+        mock_request.side_effect = [
+            MockResponse(mock_v3_list_one),
+            MockResponse(mock_v3_list_two),
+            MockResponse(mock_v3_list_three),
+        ]
+
+        aliases = vercel.Alias.list_all()
+
+        assert len(aliases) == 6
+
+        assert mock_request.mock_calls == [
+            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
+            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1464807790001}),
+            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1464807790002})
+        ]
+
+    @patch("requests.request")
+    def test_list_aliases_with_project_filter_v3(self, mock_request):
+        mock_v3_list_one = json.loads(
+            Path("tests/fixtures/responses/aliases/v3/list_1.json").open().read()
+        )
+        mock_v3_list_two = json.loads(
+            Path("tests/fixtures/responses/aliases/v3/list_2.json").open().read()
+        )
+        mock_v3_list_three = json.loads(
+            Path("tests/fixtures/responses/aliases/v3/list_3.json").open().read()
+        )
+        mock_request.side_effect = [
+            MockResponse(mock_v3_list_one),
+            MockResponse(mock_v3_list_two),
+            MockResponse(mock_v3_list_three),
+        ]
+
+        aliases = vercel.Alias.list_all(project_id='test-project')
+
+        assert len(aliases) == 6
+
+        assert mock_request.mock_calls == [
+            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'projectId': 'test-project'}),
+            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'projectId': 'test-project', 'since': 1464807790001}),
+            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'projectId': 'test-project', 'since': 1464807790002})
+        ]

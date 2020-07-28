@@ -70,3 +70,37 @@ class Alias(Resource):
             api_token=api_token,
             team_id=team_id,
         )
+
+    @classmethod
+    def list_all(
+        cls,
+        project_id=None,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v3",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        if project_id is not None:
+            params["projectId"] = project_id
+
+        res = cls.make_paginated_request(
+            resource=f"/{api_version}/now/aliases",
+            response_key="aliases",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res
