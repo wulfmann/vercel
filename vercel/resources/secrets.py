@@ -64,3 +64,33 @@ class Secret(Resource):
         )
         self.name = res["name"]
         return self
+
+    @classmethod
+    def list_all(
+        cls,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v3",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        res = cls.make_paginated_request(
+            resource=f"/{api_version}/now/secrets",
+            response_key="secrets",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res

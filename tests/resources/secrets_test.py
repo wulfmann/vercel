@@ -134,3 +134,31 @@ class TestSecrets(TestCase):
                 params={"teamId": "fake-team-id"},
             )
         ] == mock_request.mock_calls
+
+    @patch("requests.request")
+    def test_list_secrets_v3(self, mock_request):
+        mock_v3_list_one = json.loads(
+            Path("tests/fixtures/responses/secrets/v3/list_1.json").open().read()
+        )
+        mock_v3_list_two = json.loads(
+            Path("tests/fixtures/responses/secrets/v3/list_2.json").open().read()
+        )
+        mock_v3_list_three = json.loads(
+            Path("tests/fixtures/responses/secrets/v3/list_3.json").open().read()
+        )
+
+        mock_request.side_effect = [
+            MockResponse(mock_v3_list_one),
+            MockResponse(mock_v3_list_two),
+            MockResponse(mock_v3_list_three),
+        ]
+
+        secrets = vercel.Secret.list_all()
+
+        assert len(secrets) == 6
+
+        assert mock_request.mock_calls == [
+            call(url='https://api.vercel.com/v3/now/secrets', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
+            call(url='https://api.vercel.com/v3/now/secrets', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1472684630000}),
+            call(url='https://api.vercel.com/v3/now/secrets', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1472684630001})
+        ]
