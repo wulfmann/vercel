@@ -42,10 +42,22 @@ poetry install --dev
 poetry run pytest
 ```
 
+With Coverage
+
+```bash
+poetry run pytest --cov vercel
+```
+
+With Parallelization
+
+```bash
+poetry run pytest --cov vercel -n 2
+```
+
 ### Run Formatter
 
 ```bash
-poetry run black
+poetry run black .
 ```
 
 ### Build / Publish
