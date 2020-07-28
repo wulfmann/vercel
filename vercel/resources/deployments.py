@@ -96,7 +96,7 @@ class Deployment(Resource):
         )
 
     @classmethod
-    def get(cls, deployment_id=None, deployment_url=None, api_version="v11"):
+    def get(cls, deployment_id=None, deployment_url=None, api_version="v11", api_key=None, team_id=None):
         if deployment_id is None and deployment_url is None:
             raise Exception("one of deployment_id or deployment_url is required")
 
@@ -118,11 +118,13 @@ class Deployment(Resource):
             resource=resource,
             api_version=api_version,
             query_string=params,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return cls.from_data(res)
 
-    def delete(self, url=None, api_version="v11"):
+    def delete(self, url=None, api_version="v11", api_key=None, team_id=None):
         resource = f"/now/deployments/{self.id}"
         params = {}
 
@@ -135,13 +137,17 @@ class Deployment(Resource):
             resource=resource,
             api_version=api_version,
             query_string=params,
+            api_key=api_key,
+            team_id=team_id
         )
 
-    def cancel(self, api_version="v12"):
+    def cancel(self, api_version="v12", api_key=None, team_id=None):
         res = self.make_request(
             method="PATCH",
             resource=f"/now/deployments/{self.id}/cancel",
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
         # todo: refactor to update object rather than create a new one
         return Deployment.from_data(res)

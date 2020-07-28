@@ -22,35 +22,34 @@ class Alias(Resource):
         )
 
     @classmethod
-    def assign_to_domain(cls, deployment_id, alias, redirect=None, api_version="v2"):
+    def assign_to_domain(cls, deployment_id, alias, redirect=None, api_version="v2", api_key=None, team_id=None):
         data = {"alias": alias}
 
         if redirect is not None:
             data["redirect"] = redirect
 
-        res = cls.make_request(
+        return cls.make_request(
             method="POST",
             resource=f"/now/deployments/{deployment_id}/aliases",
             data=data,
             api_version=api_version,
+            api_key=api_key, team_id=team_id
         )
 
-        return res
-
     @classmethod
-    def get(cls, identifier, api_version="v2"):
+    def get(cls, identifier, api_version="v2", api_key=None, team_id=None):
         res = cls.make_request(
-            method="GET", resource=f"/now/aliases/{identifier}", api_version=api_version
+            method="GET", resource=f"/now/aliases/{identifier}", api_version=api_version, api_key=api_key, team_id=team_id
         )
 
         return cls.from_data(res)
 
-    def delete(self, api_version="v2"):
+    def delete(self, api_version="v2", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/now/aliases/{self.id}", api_version=api_version
+            method="DELETE", resource=f"/now/aliases/{self.id}", api_version=api_version, api_key=api_key, team_id=team_id
         )
 
-    def purge(self, api_version="v2"):
+    def purge(self, api_version="v2", api_key=None, team_id=None):
         return self.make_request(
-            method="PURGE", resource=f"/now/aliases/{self.id}", api_version=api_version
+            method="PURGE", resource=f"/now/aliases/{self.id}", api_version=api_version, api_key=api_key, team_id=team_id
         )

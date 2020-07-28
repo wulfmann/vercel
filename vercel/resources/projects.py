@@ -45,9 +45,6 @@ class EnvironmentVariable(Resource):
             created_at=data["createdAt"],
         )
 
-    def delete(self, api_version="v"):
-        res = self.make_request(method="DELETE", resource=f"", api_version=api_version)
-
 
 class Project(Resource):
     def __init__(
@@ -114,25 +111,31 @@ class Project(Resource):
         )
 
     @classmethod
-    def get(cls, identifier, api_version="v1"):
+    def get(cls, identifier, api_version="v1", api_key=None, team_id=None):
         res = cls.make_request(
-            method="GET", resource=f"/projects/{identifier}", api_version=api_version
+            method="GET", resource=f"/projects/{identifier}", api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
         return cls.from_data(res)
 
     @classmethod
-    def create(cls, name, api_version="v1"):
+    def create(cls, name, api_version="v1", api_key=None, team_id=None):
         res = cls.make_request(
             method="POST",
             resource=f"/projects",
             api_version=api_version,
             data={"name": name},
+            api_key=api_key,
+            team_id=team_id
         )
         return cls.from_data(res)
 
-    def delete(self, api_version="v1"):
+    def delete(self, api_version="v1", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/projects/{self.id}", api_version=api_version
+            method="DELETE", resource=f"/projects/{self.id}", api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
     # def get_environment_variables(self, api_version='v5'):
@@ -144,7 +147,7 @@ class Project(Resource):
 
     #     return res
 
-    def create_environment_variable(self, key, value, target, api_version="v4"):
+    def create_environment_variable(self, key, value, target, api_version="v4", api_key=None, team_id=None):
         # validate target
 
         res = self.make_request(
@@ -152,11 +155,13 @@ class Project(Resource):
             resource=f"/projects/{self.id}/env",
             data={"key": key, "value": value, "target": target},
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return EnvironmentVariable.from_data(self.id, res)
 
-    def delete_environment_variable(self, key, target, api_version="v4"):
+    def delete_environment_variable(self, key, target, api_version="v4", api_key=None, team_id=None):
         # validate target
 
         res = self.make_request(
@@ -164,11 +169,13 @@ class Project(Resource):
             resource=f"/projects/{self.id}/env/{key}",
             query_string={"target": target},
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return EnvironmentVariable.from_data(self.id, res)
 
-    def add_domain(self, domain, redirect=None, api_version="v1"):
+    def add_domain(self, domain, redirect=None, api_version="v1", api_key=None, team_id=None):
         data = {"domain": domain}
 
         if redirect is not None:
@@ -179,11 +186,13 @@ class Project(Resource):
             resource=f"/projects/{self.id}/alias",
             data=data,
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return res
 
-    def redirect_domain(self, domain, redirect=None, api_version="v1"):
+    def redirect_domain(self, domain, redirect=None, api_version="v1", api_key=None, team_id=None):
         data = {"domain": domain}
 
         if redirect is not None:
@@ -194,16 +203,20 @@ class Project(Resource):
             data=data,
             resource=f"/projects/{self.id}/alias",
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return
 
-    def remove_domain(self, domain, api_version="v1"):
+    def remove_domain(self, domain, api_version="v1", api_key=None, team_id=None):
         res = self.make_request(
             method="DELETE",
             resource=f"/projects/{self.id}/alias",
             query_string={"domain": domain},
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return res

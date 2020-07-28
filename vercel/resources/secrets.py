@@ -24,35 +24,42 @@ class Secret(Resource):
         )
 
     @classmethod
-    def get(cls, identifier, api_version="v3"):
+    def get(cls, identifier, api_version="v3", api_key=None, team_id=None):
         res = cls.make_request(
-            method="GET", resource=f"/now/secrets/{identifier}", api_version=api_version
+            method="GET", resource=f"/now/secrets/{identifier}", api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return cls.from_data(res)
 
     @classmethod
-    def create(cls, name, value, api_version="v2"):
+    def create(cls, name, value, api_version="v2", api_key=None, team_id=None):
         res = cls.make_request(
             method="POST",
             resource=f"/now/secrets",
             data={"name": name, "value": value},
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return cls.from_data(res)
 
-    def delete(self, api_version="v2"):
+    def delete(self, api_version="v2", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/now/secrets/{self.id}", api_version=api_version
+            method="DELETE", resource=f"/now/secrets/{self.id}", api_version=api_version, api_key=api_key,
+            team_id=team_id
         )
 
-    def update_name(self, name, api_version="v2"):
+    def update_name(self, name, api_version="v2", api_key=None, team_id=None):
         res = self.make_request(
             method="PATCH",
             resource=f"/now/secrets/{self.id}",
             data={"name": name},
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
         self.name = res["name"]
         return self

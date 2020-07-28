@@ -11,7 +11,7 @@ class DnsRecord(Resource):
         return cls(id=record_id, domain_name=domain_name)
 
     @classmethod
-    def create(cls, domain_name, name, type, value, ttl=None, api_version="v2"):
+    def create(cls, domain_name, name, type, value, ttl=None, api_version="v2", api_key=None, team_id=None):
         data = {"name": name, "type": type, "value": value}
 
         if ttl is not None:
@@ -22,14 +22,17 @@ class DnsRecord(Resource):
             resource=f"/domains/{domain_name}/records",
             data=data,
             api_version=api_version,
+            api_key=api_key,
+            team_id=team_id
         )
 
         return cls(id=res["uid"], domain_name=domain_name)
 
-    def delete(self, api_version="v2", api_key=None, team_id=None, **params):
-        self.make_request(
+    @classmethod
+    def delete(cls, domain_name, record_id, api_version="v2", api_key=None, team_id=None):
+        return cls.make_request(
             method="DELETE",
-            resource=f"/domains/{self.domain_name}/records/{self.id}",
+            resource=f"/domains/{domain_name}/records/{record_id}",
             api_version=api_version,
             api_key=api_key,
             team_id=team_id,
