@@ -61,6 +61,20 @@ class Resource:
         except Exception as e:
             raise e
 
+    @staticmethod
+    def _make_request(url, method, headers, params):
+        try:
+            response =  requests.request(url=url, method=method, headers=headers, params=params).json()
+
+            if "error" in response:
+                raise VercelError(
+                    code=response["error"]["code"], message=response["error"]["message"]
+                )
+
+            return response
+        except Exception as e:
+            raise e
+
     @classmethod
     def make_paginated_request(
         cls,
@@ -98,37 +112,27 @@ class Resource:
         try:
             url = f"https://{base_url}{resource}"
 
-            response = requests.request(url=url, method='GET', headers=headers, params=params).json()
-
-            # Handle Errors
-            if "error" in response:
-                raise VercelError(
-                    code=response["error"]["code"], message=response["error"]["message"]
-                )
-
-            # Append result
-            records = response.get(response_key)
-            if records is None:
-                raise Exception(f"failed to find response_key in response")
-            results += records
+            response = cls._make_request(url=url, method='GET', headers=headers, params=params)
 
             # Handle Pagination
-            if "pagination" in response:
+            while 'pagination' in response:
                 next_since = response["pagination"].get("next")
                 if next_since is None:
                     raise ValueError("unable to get next value for pagination")
 
+                records = response.get(response_key)
+                if records is None:
+                    raise Exception(f"failed to find response_key in response")
+                results += records
+
                 params.update({"since": next_since})
 
-                return cls.make_paginated_request(
-                    resource=resource,
-                    response_key=response_key,
-                    headers=headers,
-                    params=params,
-                    api_key=api_key,
-                    team_id=team_id,
-                    results=results,
-                )
+                response = requests.request(url=url, method='GET', headers=headers, params=params).json()
+
+            records = response.get(response_key)
+            if records is None:
+                raise Exception(f"failed to find response_key in response")
+            results += records
 
             return results
         except Exception as e:
