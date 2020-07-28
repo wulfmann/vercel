@@ -113,9 +113,11 @@ class Project(Resource):
     @classmethod
     def get(cls, identifier, api_version="v1", api_key=None, team_id=None):
         res = cls.make_request(
-            method="GET", resource=f"/projects/{identifier}", api_version=api_version,
+            method="GET",
+            resource=f"/projects/{identifier}",
+            api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
         return cls.from_data(res)
 
@@ -127,15 +129,17 @@ class Project(Resource):
             api_version=api_version,
             data={"name": name},
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
         return cls.from_data(res)
 
     def delete(self, api_version="v1", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/projects/{self.id}", api_version=api_version,
+            method="DELETE",
+            resource=f"/projects/{self.id}",
+            api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
     # def get_environment_variables(self, api_version='v5'):
@@ -147,7 +151,9 @@ class Project(Resource):
 
     #     return res
 
-    def create_environment_variable(self, key, value, target, api_version="v4", api_key=None, team_id=None):
+    def create_environment_variable(
+        self, key, value, target, api_version="v4", api_key=None, team_id=None
+    ):
         # validate target
 
         res = self.make_request(
@@ -156,12 +162,14 @@ class Project(Resource):
             data={"key": key, "value": value, "target": target},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return EnvironmentVariable.from_data(self.id, res)
 
-    def delete_environment_variable(self, key, target, api_version="v4", api_key=None, team_id=None):
+    def delete_environment_variable(
+        self, key, target, api_version="v4", api_key=None, team_id=None
+    ):
         # validate target
 
         res = self.make_request(
@@ -170,12 +178,14 @@ class Project(Resource):
             query_string={"target": target},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return EnvironmentVariable.from_data(self.id, res)
 
-    def add_domain(self, domain, redirect=None, api_version="v1", api_key=None, team_id=None):
+    def add_domain(
+        self, domain, redirect=None, api_version="v1", api_key=None, team_id=None
+    ):
         data = {"domain": domain}
 
         if redirect is not None:
@@ -187,12 +197,14 @@ class Project(Resource):
             data=data,
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return res
 
-    def redirect_domain(self, domain, redirect=None, api_version="v1", api_key=None, team_id=None):
+    def redirect_domain(
+        self, domain, redirect=None, api_version="v1", api_key=None, team_id=None
+    ):
         data = {"domain": domain}
 
         if redirect is not None:
@@ -204,7 +216,7 @@ class Project(Resource):
             resource=f"/projects/{self.id}/alias",
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return
@@ -216,7 +228,7 @@ class Project(Resource):
             query_string={"domain": domain},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return res

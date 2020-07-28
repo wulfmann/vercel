@@ -43,7 +43,7 @@ class Team(Resource):
             query_string=params,
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return cls.from_data(res)
@@ -56,15 +56,18 @@ class Team(Resource):
             data={"slug": slug},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return cls.from_data(res)
 
     def delete(self, api_version="v1", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/teams/{self.id}", api_version=api_version, api_key=api_key,
-            team_id=team_id
+            method="DELETE",
+            resource=f"/teams/{self.id}",
+            api_version=api_version,
+            api_key=api_key,
+            team_id=team_id,
         )
 
     def update(self, slug, name, api_version="v1", api_key=None, team_id=None):
@@ -74,7 +77,7 @@ class Team(Resource):
             data={"slug": slug, "name": name},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
         # todo refactor this to update current object instead of creating a new one
         return Team.from_data(res)
@@ -87,10 +90,18 @@ class Team(Resource):
             data={"email": email, "role": role},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
-    def update_user(self, user_id, role, confirmed=None, api_version="v1", api_key=None, team_id=None):
+    def update_user(
+        self,
+        user_id,
+        role,
+        confirmed=None,
+        api_version="v1",
+        api_key=None,
+        team_id=None,
+    ):
         # todo validate role
         data = {"role": role}
 
@@ -103,10 +114,18 @@ class Team(Resource):
             data=data,
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
-    def request_to_join(self, origin, commit_id=None, repo_id=None, api_version="v1", api_key=None, team_id=None):
+    def request_to_join(
+        self,
+        origin,
+        commit_id=None,
+        repo_id=None,
+        api_version="v1",
+        api_key=None,
+        team_id=None,
+    ):
         # todo validate origin
         data = {"origin": origin}
 
@@ -122,7 +141,7 @@ class Team(Resource):
             data=data,
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
     def remove_user(self, user_id, api_version="v1", api_key=None, team_id=None):
@@ -131,5 +150,5 @@ class Team(Resource):
             resource=f"/teams/{self.id}/members/{user_id}",
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )

@@ -64,7 +64,9 @@ class Resource:
     @staticmethod
     def _make_request(url, method, headers, params):
         try:
-            response =  requests.request(url=url, method=method, headers=headers, params=params).json()
+            response = requests.request(
+                url=url, method=method, headers=headers, params=params
+            ).json()
 
             if "error" in response:
                 raise VercelError(
@@ -112,10 +114,12 @@ class Resource:
         try:
             url = f"https://{base_url}{resource}"
 
-            response = cls._make_request(url=url, method='GET', headers=headers, params=params)
+            response = cls._make_request(
+                url=url, method="GET", headers=headers, params=params
+            )
 
             # Handle Pagination
-            while 'pagination' in response:
+            while "pagination" in response:
                 next_since = response["pagination"].get("next")
                 if next_since is None:
                     raise ValueError("unable to get next value for pagination")
@@ -127,7 +131,9 @@ class Resource:
 
                 params.update({"since": next_since})
 
-                response = requests.request(url=url, method='GET', headers=headers, params=params).json()
+                response = requests.request(
+                    url=url, method="GET", headers=headers, params=params
+                ).json()
 
             records = response.get(response_key)
             if records is None:

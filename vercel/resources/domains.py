@@ -96,7 +96,15 @@ class Domain(Resource):
         )
 
     @classmethod
-    def list_all(cls, limit=None, since=None, until=None, api_version="v5", api_key=None, team_id=None):
+    def list_all(
+        cls,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v5",
+        api_key=None,
+        team_id=None,
+    ):
         params = {}
 
         if limit is not None:
@@ -109,9 +117,11 @@ class Domain(Resource):
             params["until"] = until
 
         res = cls.make_paginated_request(
-            resource=f"/{api_version}/domains", response_key="domains", params=params,
+            resource=f"/{api_version}/domains",
+            response_key="domains",
+            params=params,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
         print(res)
         return res
@@ -119,9 +129,11 @@ class Domain(Resource):
     @classmethod
     def get(cls, name, api_version="v4", api_key=None, team_id=None):
         res = cls.make_request(
-            method="GET", resource=f"/domains/{name}", api_version=api_version,
+            method="GET",
+            resource=f"/domains/{name}",
+            api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return cls.from_data(res)
@@ -134,7 +146,7 @@ class Domain(Resource):
             data={"name": name},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return cls.from_data(res)
@@ -147,7 +159,7 @@ class Domain(Resource):
             query_string={"name": name},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return res
@@ -160,29 +172,33 @@ class Domain(Resource):
             query_string={"name": name},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return Price.from_data(name, res)
 
     @classmethod
-    def purchase(cls, name, expected_price, api_version="v4", api_key=None, team_id=None):
+    def purchase(
+        cls, name, expected_price, api_version="v4", api_key=None, team_id=None
+    ):
         res = cls.make_request(
             method="POST",
             resource=f"/domains/buy",
             data={"name": name, "expectedPrice": expected_price},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return res
 
     def delete(self, api_version="v4", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/domains/{self.name}", api_version=api_version,
+            method="DELETE",
+            resource=f"/domains/{self.name}",
+            api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
     def create_dns_record(self, name, type, value, ttl=None):

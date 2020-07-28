@@ -27,7 +27,7 @@ class Certificate(Resource):
             data={"domains": domains},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
     @classmethod
@@ -38,7 +38,7 @@ class Certificate(Resource):
             data={"ca": ca, "cert": cert, "key": key},
             api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )
 
     @classmethod
@@ -46,15 +46,18 @@ class Certificate(Resource):
         res = cls.make_request(
             method="GET",
             resource=f"/now/certs/{certificate_id}",
-            api_version=api_version,api_key=api_key,
-            team_id=team_id
+            api_version=api_version,
+            api_key=api_key,
+            team_id=team_id,
         )
 
         return cls.from_data(res)
 
     def delete(self, api_version="v3", api_key=None, team_id=None):
         return self.make_request(
-            method="DELETE", resource=f"/now/certs/{self.id}", api_version=api_version,
+            method="DELETE",
+            resource=f"/now/certs/{self.id}",
+            api_version=api_version,
             api_key=api_key,
-            team_id=team_id
+            team_id=team_id,
         )

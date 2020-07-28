@@ -18,23 +18,51 @@ class TestPagination(TestCase):
         vercel.team_id = None
 
     def test_make_paginated_call(self):
-        with patch('requests.request') as mock_request:
+        with patch("requests.request") as mock_request:
             mock_request.side_effect = [
-                MockResponse({ 'domains': [{ 'id': 'domain-1' }], 'pagination': { 'next': '1' }}),
-                MockResponse({ 'domains': [{ 'id': 'domain-2' }], 'pagination': { 'next': '2' }}),
-                MockResponse({ 'domains': [{ 'id': 'domain-3' }]})
+                MockResponse(
+                    {"domains": [{"id": "domain-1"}], "pagination": {"next": "1"}}
+                ),
+                MockResponse(
+                    {"domains": [{"id": "domain-2"}], "pagination": {"next": "2"}}
+                ),
+                MockResponse({"domains": [{"id": "domain-3"}]}),
             ]
 
-            result = vercel.Resource.make_paginated_request('/test', 'domains')
+            result = vercel.Resource.make_paginated_request("/test", "domains")
 
             assert [
-                {'id': 'domain-1'},
-                {'id': 'domain-2'},
-                {'id': 'domain-3'}
+                {"id": "domain-1"},
+                {"id": "domain-2"},
+                {"id": "domain-3"},
             ] == result
 
             assert mock_request.mock_calls == [
-                call(url='https://api.vercel.com/test', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-key'}, params={'teamId': 'fake-team-id'}),
-                call(url='https://api.vercel.com/test', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-key'}, params={'teamId': 'fake-team-id', 'since': '1'}),
-                call(url='https://api.vercel.com/test', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-key'}, params={'teamId': 'fake-team-id', 'since': '2'})
+                call(
+                    url="https://api.vercel.com/test",
+                    method="GET",
+                    headers={
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer fake-api-key",
+                    },
+                    params={"teamId": "fake-team-id"},
+                ),
+                call(
+                    url="https://api.vercel.com/test",
+                    method="GET",
+                    headers={
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer fake-api-key",
+                    },
+                    params={"teamId": "fake-team-id", "since": "1"},
+                ),
+                call(
+                    url="https://api.vercel.com/test",
+                    method="GET",
+                    headers={
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer fake-api-key",
+                    },
+                    params={"teamId": "fake-team-id", "since": "2"},
+                ),
             ]
