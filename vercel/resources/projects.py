@@ -257,3 +257,32 @@ class Project(Resource):
             team_id=team_id,
         )
         return res
+
+    def list_environment_variables(
+        self,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v5",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        res = self.make_paginated_request(
+            resource=f"/{api_version}/projects/{self.id}/env",
+            response_key="envs",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res
