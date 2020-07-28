@@ -1,6 +1,6 @@
 # DNS
 
-The [DNS API Operations]() have been grouped under the `Domain` object. The reason for this is you cannot perform a DNS operation without specifying the associated domain.
+The [DNS API Operations](https://vercel.com/docs/api#endpoints/dns) have been grouped under the `Domain` object. The reason for this is you cannot perform a DNS operation without specifying the associated domain.
 
 Requiring a `Domain` object first allows the API to remain simple and expected.
 
