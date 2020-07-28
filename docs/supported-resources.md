@@ -72,7 +72,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Get Alias|✅||
 |Delete Alias|✅||
 |Purge Alias|✅||
-|List Aliases By Deployment|❌||
+|List Aliases By Deployment|✅||
 |Assign Alias To Deployment|✅||
 
 ### Secrets
