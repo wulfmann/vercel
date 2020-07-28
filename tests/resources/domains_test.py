@@ -10,11 +10,11 @@ import vercel
 
 class TestDomains(TestCase):
     def setUp(self):
-        vercel.api_key = "fake-api-key"
+        vercel.api_token = "fake-api-token"
         vercel.team_id = "fake-team-id"
 
     def tearDown(self):
-        vercel.api_key = None
+        vercel.api_token = None
         vercel.team_id = None
 
     @patch("requests.request")
@@ -39,7 +39,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/example.com",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )
@@ -184,7 +184,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
                 json={"name": "example.com"},
@@ -239,7 +239,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/example.com",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )
@@ -262,7 +262,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/example.com",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -271,7 +271,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/example.com",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -297,7 +297,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/example.com",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -306,7 +306,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v2/domains/example.com/records",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
                 json={"name": "", "type": "TXT", "value": "something"},
@@ -331,7 +331,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/status",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id", "name": "test.com"},
             )
@@ -355,7 +355,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/price",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id", "name": "test.com"},
             )
@@ -382,7 +382,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/price",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id", "name": "test.com"},
             ),
@@ -391,7 +391,7 @@ class TestDomains(TestCase):
                 url="https://api.vercel.com/v4/domains/buy",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"name": "test.com", "expectedPrice": 17},
                 params={"teamId": "fake-team-id"},

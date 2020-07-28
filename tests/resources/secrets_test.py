@@ -10,11 +10,11 @@ import vercel
 
 class TestSecrets(TestCase):
     def setUp(self):
-        vercel.api_key = "fake-api-key"
+        vercel.api_token = "fake-api-token"
         vercel.team_id = "fake-team-id"
 
     def tearDown(self):
-        vercel.api_key = None
+        vercel.api_token = None
         vercel.team_id = None
 
     @patch("requests.request")
@@ -36,7 +36,7 @@ class TestSecrets(TestCase):
                 url="https://api.vercel.com/v3/now/secrets/test-secret",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -45,7 +45,7 @@ class TestSecrets(TestCase):
                 url="https://api.vercel.com/v2/now/secrets/secret-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -72,7 +72,7 @@ class TestSecrets(TestCase):
                 url="https://api.vercel.com/v3/now/secrets/test-secret",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -81,7 +81,7 @@ class TestSecrets(TestCase):
                 url="https://api.vercel.com/v2/now/secrets/secret-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"name": "new-name"},
                 params={"teamId": "fake-team-id"},
@@ -105,7 +105,7 @@ class TestSecrets(TestCase):
                 url="https://api.vercel.com/v3/now/secrets/test-secret",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )
@@ -128,7 +128,7 @@ class TestSecrets(TestCase):
                 url="https://api.vercel.com/v2/now/secrets",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"name": "my-secret", "value": "my-secret-value"},
                 params={"teamId": "fake-team-id"},

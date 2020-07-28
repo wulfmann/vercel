@@ -4,55 +4,19 @@ from vercel.exceptions import VercelError
 
 
 class Resource:
-    @classmethod
-    def make_request(
-        cls,
-        method,
-        resource,
-        api_version=None,
-        base_url="api.vercel.com",
-        data=None,
-        query_string={},
-        api_key=None,
-        team_id=None,
-    ):
-        if api_key is None:
-            api_key = vercel.api_key
-
-        if team_id is None:
-            team_id = vercel.team_id
-
-        if api_key is None:
-            raise Exception(f"api_key was not found")
-
-        if api_version is None:
-            raise Exception(f"api_version was not found")
-
+    @staticmethod
+    def _make_request(url, method, headers, params, data=None):
         try:
-            url = f"https://{base_url}/{api_version}{resource}"
-
             kwargs = dict(
-                method=method,
-                url=url,
-                headers={
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {vercel.api_key}",
-                },
-                params=query_string,
+                url=url, method=method, headers=headers, params=params
             )
 
             if data is not None:
-                kwargs["json"] = data
+                kwargs['json'] = data
 
-            if team_id is not None:
-                kwargs["params"]["teamId"] = team_id
-
-            response = requests.request(**kwargs)
-            status_code = response.status_code
-            response = response.json()
+            response = requests.request(**kwargs).json()
 
             if "error" in response:
-                print(response)
                 raise VercelError(
                     code=response["error"]["code"], message=response["error"]["message"]
                 )
@@ -61,17 +25,51 @@ class Resource:
         except Exception as e:
             raise e
 
-    @staticmethod
-    def _make_request(url, method, headers, params):
-        try:
-            response = requests.request(
-                url=url, method=method, headers=headers, params=params
-            ).json()
+    @classmethod
+    def make_request(
+        cls,
+        method,
+        resource,
+        data=None,
+        headers=None,
+        params=None,
+        api_token=None,
+        team_id=None,
+    ):
+        if api_token is None:
+            api_token = vercel.api_token
 
-            if "error" in response:
-                raise VercelError(
-                    code=response["error"]["code"], message=response["error"]["message"]
-                )
+        if team_id is None:
+            team_id = vercel.team_id
+
+        if api_token is None:
+            raise Exception(f"api_token was not found")
+
+        if params is None:
+            params = {}
+
+        if headers is None:
+            headers = {}
+
+        try:
+            base_url="api.vercel.com"
+            url = f"https://{base_url}{resource}"
+
+            headers.update({
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {api_token}",
+            })
+
+            if team_id is not None:
+                params.update({ 'teamId': team_id })
+
+            response = cls._make_request(
+                url=url,
+                method=method,
+                headers=headers,
+                params=params,
+                data=data
+            )
 
             return response
         except Exception as e:
@@ -82,23 +80,33 @@ class Resource:
         cls,
         resource,
         response_key,
-        headers={},
-        params={},
-        api_key=None,
+        method='GET',
+        headers=None,
+        params=None,
+        api_token=None,
         team_id=None,
-        results=[],
+        results=None,
     ):
-        if api_key is None:
-            api_key = vercel.api_key
+        if results is None:
+            results = []
 
-        if api_key is None:
-            raise Exception(f"api_key was not found")
+        if params is None:
+            params = {}
+
+        if headers is None:
+            headers = {}
+
+        if api_token is None:
+            api_token = vercel.api_token
+
+        if api_token is None:
+            raise Exception(f"api_token was not found")
 
         # Add Authentication Headers
         headers.update(
             {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {vercel.api_key}",
+                "Authorization": f"Bearer {api_token}",
             }
         )
 
@@ -115,31 +123,33 @@ class Resource:
             url = f"https://{base_url}{resource}"
 
             response = cls._make_request(
-                url=url, method="GET", headers=headers, params=params
+                url=url, method=method, headers=headers, params=params
             )
 
-            # Handle Pagination
-            while "pagination" in response:
-                next_since = response["pagination"].get("next")
-                if next_since is None:
-                    raise ValueError("unable to get next value for pagination")
-
-                records = response.get(response_key)
-                if records is None:
-                    raise Exception(f"failed to find response_key in response")
-                results += records
-
-                params.update({"since": next_since})
-
-                response = requests.request(
-                    url=url, method="GET", headers=headers, params=params
-                ).json()
-
+            # Append records to results
             records = response.get(response_key)
             if records is None:
-                raise Exception(f"failed to find response_key in response")
+                raise ValueError('unable to find records for responsekey')
             results += records
 
+            pagination = response.get('pagination')
+
+            while pagination is not None:
+                next_params = params.copy()
+
+                # Update Next Parameter
+                next_params.update({ 'since': pagination['next'] })
+                response = cls._make_request(
+                    url=url, method=method, headers=headers, params=next_params
+                )
+
+                # Append records to results
+                records = response.get(response_key)
+                if records is None:
+                    raise ValueError('unable to find records for responsekey')
+                results += records
+
+                pagination = response.get('pagination')
             return results
         except Exception as e:
             raise e

@@ -28,7 +28,7 @@ class Alias(Resource):
         alias,
         redirect=None,
         api_version="v2",
-        api_key=None,
+        api_token=None,
         team_id=None,
     ):
         data = {"alias": alias}
@@ -38,39 +38,35 @@ class Alias(Resource):
 
         return cls.make_request(
             method="POST",
-            resource=f"/now/deployments/{deployment_id}/aliases",
+            resource=f"/{api_version}/now/deployments/{deployment_id}/aliases",
             data=data,
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
     @classmethod
-    def get(cls, identifier, api_version="v2", api_key=None, team_id=None):
+    def get(cls, identifier, api_version="v2", api_token=None, team_id=None):
         res = cls.make_request(
             method="GET",
-            resource=f"/now/aliases/{identifier}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/now/aliases/{identifier}",
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls.from_data(res)
 
-    def delete(self, api_version="v2", api_key=None, team_id=None):
+    def delete(self, api_version="v2", api_token=None, team_id=None):
         return self.make_request(
             method="DELETE",
-            resource=f"/now/aliases/{self.id}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/now/aliases/{self.id}",
+            api_token=api_token,
             team_id=team_id,
         )
 
-    def purge(self, api_version="v2", api_key=None, team_id=None):
+    def purge(self, api_version="v2", api_token=None, team_id=None):
         return self.make_request(
             method="PURGE",
-            resource=f"/now/aliases/{self.id}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/now/aliases/{self.id}",
+            api_token=api_token,
             team_id=team_id,
         )

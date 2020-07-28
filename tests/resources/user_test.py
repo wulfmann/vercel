@@ -10,11 +10,11 @@ import vercel
 
 class TestUser(TestCase):
     def setUp(self):
-        vercel.api_key = "fake-api-key"
+        vercel.api_token = "fake-api-token"
         vercel.team_id = "fake-team-id"
 
     def tearDown(self):
-        vercel.api_key = None
+        vercel.api_token = None
         vercel.team_id = None
 
     @patch("requests.request")
@@ -32,7 +32,7 @@ class TestUser(TestCase):
                 url="https://api.vercel.com/www/user",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )

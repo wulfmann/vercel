@@ -101,7 +101,7 @@ class Deployment(Resource):
         deployment_id=None,
         deployment_url=None,
         api_version="v11",
-        api_key=None,
+        api_token=None,
         team_id=None,
     ):
         if deployment_id is None and deployment_url is None:
@@ -122,16 +122,15 @@ class Deployment(Resource):
 
         res = cls.make_request(
             method="GET",
-            resource=resource,
-            api_version=api_version,
-            query_string=params,
-            api_key=api_key,
+            resource=f"/{api_version}{resource}",
+            params=params,
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls.from_data(res)
 
-    def delete(self, url=None, api_version="v11", api_key=None, team_id=None):
+    def delete(self, url=None, api_version="v11", api_token=None, team_id=None):
         resource = f"/now/deployments/{self.id}"
         params = {}
 
@@ -141,19 +140,17 @@ class Deployment(Resource):
 
         return self.make_request(
             method="DELETE",
-            resource=resource,
-            api_version=api_version,
-            query_string=params,
-            api_key=api_key,
+            resource=f"/{api_version}{resource}",
+            params=params,
+            api_token=api_token,
             team_id=team_id,
         )
 
-    def cancel(self, api_version="v12", api_key=None, team_id=None):
+    def cancel(self, api_version="v12", api_token=None, team_id=None):
         res = self.make_request(
             method="PATCH",
-            resource=f"/now/deployments/{self.id}/cancel",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/now/deployments/{self.id}/cancel",
+            api_token=api_token,
             team_id=team_id,
         )
         # todo: refactor to update object rather than create a new one

@@ -11,11 +11,11 @@ from vercel.resources.deployments import Deployment
 
 class TestProjects(TestCase):
     def setUp(self):
-        vercel.api_key = "fake-api-key"
+        vercel.api_token = "fake-api-token"
         vercel.team_id = "fake-team-id"
 
     def tearDown(self):
-        vercel.api_key = None
+        vercel.api_token = None
         vercel.team_id = None
 
     @patch("requests.request")
@@ -58,7 +58,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
                 json={"name": "test-project"},
@@ -156,7 +156,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )
@@ -181,7 +181,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -190,7 +190,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -219,7 +219,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -228,7 +228,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v4/projects/project-id/env",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"key": "my-var", "value": "@my-secret", "target": "production"},
                 params={"teamId": "fake-team-id"},
@@ -256,7 +256,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -265,7 +265,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v4/projects/project-id/env/my-var",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id", "target": "production"},
             ),
@@ -292,7 +292,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -301,7 +301,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id/alias",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"domain": "foobar.com"},
                 params={"teamId": "fake-team-id"},
@@ -329,7 +329,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -338,7 +338,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id/alias",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"domain": "foobar.com", "teamId": "fake-team-id"},
             ),
@@ -365,7 +365,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -374,7 +374,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id/alias",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"domain": "foobar.com", "redirect": "www.foobar.com"},
                 params={"teamId": "fake-team-id"},

@@ -10,11 +10,12 @@ class User(Resource):
         return cls()
 
     @classmethod
-    def get(cls, api_version="", api_key=None, team_id=None):
+    def get(cls, api_version="", api_token=None, team_id=None):
         res = cls.make_request(
             method="GET",
-            resource="www/user",  # no trailing slash because no api version
-            api_version=api_version,
+            resource=f"/{api_version}www/user",  # no trailing slash because no api version
+            api_token=api_token,
+            team_id=team_id
         )
 
         return res

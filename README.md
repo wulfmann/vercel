@@ -17,7 +17,7 @@ pip install vercel
 ```python
 import vercel
 
-vercel.api_key = 'xxxxxx'
+vercel.api_token = 'xxxxxx'
 
 user = vercel.User.get()
 ```
@@ -31,7 +31,7 @@ You can learn more about the authentication process [here](/docs/reference/authe
 ```python
 import vercel
 
-vercel.api_key = 'xxxxxx'
+vercel.api_token = 'xxxxxx'
 vercel.team_id = 'my-team
 
 vercel.Domain.get('mydomain.com')

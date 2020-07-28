@@ -10,11 +10,11 @@ import vercel
 
 class TestCertificates(TestCase):
     def setUp(self):
-        vercel.api_key = "fake-api-key"
+        vercel.api_token = "fake-api-token"
         vercel.team_id = "fake-team-id"
 
     def tearDown(self):
-        vercel.api_key = None
+        vercel.api_token = None
         vercel.team_id = None
 
     @patch("requests.request")
@@ -33,7 +33,7 @@ class TestCertificates(TestCase):
                 url="https://api.vercel.com/v3/now/certs/certificate-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -42,7 +42,7 @@ class TestCertificates(TestCase):
                 url="https://api.vercel.com/v3/now/certs/certificate-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -71,7 +71,7 @@ class TestCertificates(TestCase):
                 url="https://api.vercel.com/v3/now/certs/certificate-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )
@@ -89,7 +89,7 @@ class TestCertificates(TestCase):
                 url="https://api.vercel.com/v3/now/certs",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"domains": ["test.com"]},
                 params={"teamId": "fake-team-id"},
@@ -108,7 +108,7 @@ class TestCertificates(TestCase):
                 url="https://api.vercel.com/v3/now/certs",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"ca": "ca", "cert": "cert", "key": "key"},
                 params={"teamId": "fake-team-id"},
