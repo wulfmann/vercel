@@ -298,3 +298,51 @@ class TestTeams(TestCase):
                 params={"teamId": "fake-team-id"},
             ),
         ] == mock_request.mock_calls
+
+    @patch("requests.request")
+    def test_list_all_v1(self, mock_request):
+        mock_v1_list_all = json.loads(
+            Path("tests/fixtures/responses/teams/v1/list_all.json").open().read()
+        )
+
+        mock_request.side_effect = [
+            MockResponse(mock_v1_list_all),
+        ]
+
+        teams = vercel.Team.list_all()
+
+        assert len(teams) == 1
+
+        assert mock_request.mock_calls == [
+            call(url='https://api.vercel.com/v1/teams', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'})
+        ]
+
+    @patch("requests.request")
+    def test_list_members_v2(self, mock_request):
+        mock_v1_get = Path("tests/fixtures/responses/teams/v1/get.json")
+        mock_v2_list_members = json.loads(
+            Path("tests/fixtures/responses/teams/v2/list_members.json").open().read()
+        )
+
+        mock_request.side_effect = [
+            MockResponse(response=json.loads(mock_v1_get.open().read())),
+            MockResponse(mock_v2_list_members),
+        ]
+
+        team = vercel.Team.get("team-id")
+        members = team.list_members()
+
+        assert len(members) == 2
+
+        assert mock_request.mock_calls == [
+            call(
+                method="GET",
+                url="https://api.vercel.com/v1/teams",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "slug": "team-id"},
+            ),
+            call(url='https://api.vercel.com/v2/teams/team-id/members', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'})
+        ]

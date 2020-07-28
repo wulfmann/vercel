@@ -91,10 +91,10 @@ The following is a table of all of the API resources from Vercel, along with thi
 |---------|---------|-------------|
 |Create Team|✅||
 |Delete Team|✅||
-|List Teams|❌||
+|List Teams|✅||
 |Get Team|✅||
 |Update Team|✅||
-|List Team Members|❌||
+|List Team Members|✅||
 |Invite User To Team|✅||
 |Change User Role Or Status|✅||
 |Request To Join Team|✅||
