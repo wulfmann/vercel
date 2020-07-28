@@ -204,8 +204,5 @@ class Domain(Resource):
 
     def list_records(self, limit=None, since=None, until=None):
         return DnsRecord.list_records(
-            domain_name=self.name,
-            limit=limit,
-            since=since,
-            until=until
+            domain_name=self.name, limit=limit, since=since, until=until
         )

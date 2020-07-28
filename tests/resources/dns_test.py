@@ -83,12 +83,36 @@ class TestDns(TestCase):
             MockResponse(mock_v4_list_three),
         ]
 
-        records = vercel.DnsRecord.list_records('my-domain')
+        records = vercel.DnsRecord.list_records("my-domain")
 
         assert len(records) == 6
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v4/domains/my-domain/records', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v4/domains/my-domain/records', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1474631619961}),
-            call(url='https://api.vercel.com/v4/domains/my-domain/records', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1474631619962})
+            call(
+                url="https://api.vercel.com/v4/domains/my-domain/records",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v4/domains/my-domain/records",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1474631619961},
+            ),
+            call(
+                url="https://api.vercel.com/v4/domains/my-domain/records",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1474631619962},
+            ),
         ]

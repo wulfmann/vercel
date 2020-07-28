@@ -93,9 +93,33 @@ class TestAliases(TestCase):
         assert len(aliases) == 6
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1464807790001}),
-            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1464807790002})
+            call(
+                url="https://api.vercel.com/v3/now/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v3/now/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1464807790001},
+            ),
+            call(
+                url="https://api.vercel.com/v3/now/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1464807790002},
+            ),
         ]
 
     @patch("requests.request")
@@ -115,12 +139,44 @@ class TestAliases(TestCase):
             MockResponse(mock_v3_list_three),
         ]
 
-        aliases = vercel.Alias.list_all(project_id='test-project')
+        aliases = vercel.Alias.list_all(project_id="test-project")
 
         assert len(aliases) == 6
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'projectId': 'test-project'}),
-            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'projectId': 'test-project', 'since': 1464807790001}),
-            call(url='https://api.vercel.com/v3/now/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'projectId': 'test-project', 'since': 1464807790002})
+            call(
+                url="https://api.vercel.com/v3/now/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "projectId": "test-project"},
+            ),
+            call(
+                url="https://api.vercel.com/v3/now/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={
+                    "teamId": "fake-team-id",
+                    "projectId": "test-project",
+                    "since": 1464807790001,
+                },
+            ),
+            call(
+                url="https://api.vercel.com/v3/now/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={
+                    "teamId": "fake-team-id",
+                    "projectId": "test-project",
+                    "since": 1464807790002,
+                },
+            ),
         ]

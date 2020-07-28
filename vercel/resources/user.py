@@ -15,7 +15,7 @@ class User(Resource):
             method="GET",
             resource=f"/{api_version}www/user",  # no trailing slash because no api version
             api_token=api_token,
-            team_id=team_id
+            team_id=team_id,
         )
 
         return res

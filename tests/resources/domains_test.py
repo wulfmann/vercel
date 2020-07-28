@@ -418,7 +418,7 @@ class TestDomains(TestCase):
             MockResponse(mock_v4_list_three),
         ]
 
-        domain = vercel.Domain.get('example.com')
+        domain = vercel.Domain.get("example.com")
         records = domain.list_records()
 
         print(records)
@@ -435,7 +435,31 @@ class TestDomains(TestCase):
                 },
                 params={"teamId": "fake-team-id"},
             ),
-            call(url='https://api.vercel.com/v4/domains/example.com/records', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v4/domains/example.com/records', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1474631619961}),
-            call(url='https://api.vercel.com/v4/domains/example.com/records', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1474631619962})
+            call(
+                url="https://api.vercel.com/v4/domains/example.com/records",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v4/domains/example.com/records",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1474631619961},
+            ),
+            call(
+                url="https://api.vercel.com/v4/domains/example.com/records",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1474631619962},
+            ),
         ]

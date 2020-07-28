@@ -120,7 +120,7 @@ class TestTeams(TestCase):
         assert team.created == "2017-04-29T17:21:54.514Z"
         assert team.avatar == None
 
-        assert mock_request.mock_calls ==[
+        assert mock_request.mock_calls == [
             call(
                 method="GET",
                 url="https://api.vercel.com/v1/teams",
@@ -314,7 +314,15 @@ class TestTeams(TestCase):
         assert len(teams) == 1
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v1/teams', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'})
+            call(
+                url="https://api.vercel.com/v1/teams",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            )
         ]
 
     @patch("requests.request")
@@ -344,5 +352,13 @@ class TestTeams(TestCase):
                 },
                 params={"teamId": "fake-team-id", "slug": "team-id"},
             ),
-            call(url='https://api.vercel.com/v2/teams/team-id/members', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'})
+            call(
+                url="https://api.vercel.com/v2/teams/team-id/members",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
         ]

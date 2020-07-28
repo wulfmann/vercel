@@ -130,14 +130,14 @@ class TestDeployment(TestCase):
     @patch("requests.request")
     def test_list_aliases_v2(self, mock_request):
         mock_v11_get = Path("tests/fixtures/responses/deployments/v11/get.json")
-        
+
         mock_v2_list_one = json.loads(
             Path("tests/fixtures/responses/deployments/v2/list_1.json").open().read()
         )
 
         mock_request.side_effect = [
             MockResponse(response=json.loads(mock_v11_get.open().read())),
-            MockResponse(mock_v2_list_one)
+            MockResponse(mock_v2_list_one),
         ]
 
         deployment = vercel.Deployment.get("deployment-id")
@@ -146,6 +146,22 @@ class TestDeployment(TestCase):
         assert len(aliases) == 1
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v11/now/deployments/deployment-id', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v2/now/deployments/deployment-id/aliases', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'})
+            call(
+                url="https://api.vercel.com/v11/now/deployments/deployment-id",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v2/now/deployments/deployment-id/aliases",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
         ]

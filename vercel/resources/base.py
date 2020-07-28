@@ -7,12 +7,10 @@ class Resource:
     @staticmethod
     def _make_request(url, method, headers, params, data=None):
         try:
-            kwargs = dict(
-                url=url, method=method, headers=headers, params=params
-            )
+            kwargs = dict(url=url, method=method, headers=headers, params=params)
 
             if data is not None:
-                kwargs['json'] = data
+                kwargs["json"] = data
 
             response = requests.request(**kwargs).json()
 
@@ -52,23 +50,21 @@ class Resource:
             headers = {}
 
         try:
-            base_url="api.vercel.com"
+            base_url = "api.vercel.com"
             url = f"https://{base_url}{resource}"
 
-            headers.update({
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {api_token}",
-            })
+            headers.update(
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {api_token}",
+                }
+            )
 
             if team_id is not None:
-                params.update({ 'teamId': team_id })
+                params.update({"teamId": team_id})
 
             response = cls._make_request(
-                url=url,
-                method=method,
-                headers=headers,
-                params=params,
-                data=data
+                url=url, method=method, headers=headers, params=params, data=data
             )
 
             return response
@@ -80,7 +76,7 @@ class Resource:
         cls,
         resource,
         response_key,
-        method='GET',
+        method="GET",
         headers=None,
         params=None,
         api_token=None,
@@ -129,16 +125,16 @@ class Resource:
             # Append records to results
             records = response.get(response_key)
             if records is None:
-                raise ValueError('unable to find records for responsekey')
+                raise ValueError("unable to find records for responsekey")
             results += records
 
-            pagination = response.get('pagination')
+            pagination = response.get("pagination")
 
             while pagination is not None:
                 next_params = params.copy()
 
                 # Update Next Parameter
-                next_params.update({ 'since': pagination['next'] })
+                next_params.update({"since": pagination["next"]})
                 response = cls._make_request(
                     url=url, method=method, headers=headers, params=next_params
                 )
@@ -146,10 +142,10 @@ class Resource:
                 # Append records to results
                 records = response.get(response_key)
                 if records is None:
-                    raise ValueError('unable to find records for responsekey')
+                    raise ValueError("unable to find records for responsekey")
                 results += records
 
-                pagination = response.get('pagination')
+                pagination = response.get("pagination")
             return results
         except Exception as e:
             raise e

@@ -158,7 +158,31 @@ class TestSecrets(TestCase):
         assert len(secrets) == 6
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v3/now/secrets', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v3/now/secrets', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1472684630000}),
-            call(url='https://api.vercel.com/v3/now/secrets', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1472684630001})
+            call(
+                url="https://api.vercel.com/v3/now/secrets",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v3/now/secrets",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1472684630000},
+            ),
+            call(
+                url="https://api.vercel.com/v3/now/secrets",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1472684630001},
+            ),
         ]

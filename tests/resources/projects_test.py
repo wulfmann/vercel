@@ -404,22 +404,52 @@ class TestProjects(TestCase):
         assert len(projects) == 6
 
         assert mock_request.mock_calls == [
-            call(url='https://api.vercel.com/v4/projects', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v4/projects', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1555072968396}),
-            call(url='https://api.vercel.com/v4/projects', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1555072968397})
+            call(
+                url="https://api.vercel.com/v4/projects",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v4/projects",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1555072968396},
+            ),
+            call(
+                url="https://api.vercel.com/v4/projects",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1555072968397},
+            ),
         ]
 
     @patch("requests.request")
     def test_list_environment_variables_v1(self, mock_request):
         mock_v1_get = Path("tests/fixtures/responses/projects/v1/get.json")
         mock_v4_list_one = json.loads(
-            Path("tests/fixtures/responses/projects/v5/list_env_vars_1.json").open().read()
+            Path("tests/fixtures/responses/projects/v5/list_env_vars_1.json")
+            .open()
+            .read()
         )
         mock_v4_list_two = json.loads(
-            Path("tests/fixtures/responses/projects/v5/list_env_vars_2.json").open().read()
+            Path("tests/fixtures/responses/projects/v5/list_env_vars_2.json")
+            .open()
+            .read()
         )
         mock_v4_list_three = json.loads(
-            Path("tests/fixtures/responses/projects/v5/list_env_vars_3.json").open().read()
+            Path("tests/fixtures/responses/projects/v5/list_env_vars_3.json")
+            .open()
+            .read()
         )
 
         mock_request.side_effect = [
@@ -444,7 +474,31 @@ class TestProjects(TestCase):
                 },
                 params={"teamId": "fake-team-id"},
             ),
-            call(url='https://api.vercel.com/v5/projects/project-id/env', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id'}),
-            call(url='https://api.vercel.com/v5/projects/project-id/env', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1557241361435}),
-            call(url='https://api.vercel.com/v5/projects/project-id/env', method='GET', headers={'Content-Type': 'application/json', 'Authorization': 'Bearer fake-api-token'}, params={'teamId': 'fake-team-id', 'since': 1557241361436})
+            call(
+                url="https://api.vercel.com/v5/projects/project-id/env",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v5/projects/project-id/env",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1557241361435},
+            ),
+            call(
+                url="https://api.vercel.com/v5/projects/project-id/env",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1557241361436},
+            ),
         ]
