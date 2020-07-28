@@ -61,13 +61,13 @@ class Team(Resource):
 
         return cls.from_data(res)
 
-    def delete(self, api_version="v1"):
+    def delete(self, api_version="v1", api_key=None, team_id=None):
         return self.make_request(
             method="DELETE", resource=f"/teams/{self.id}", api_version=api_version, api_key=api_key,
             team_id=team_id
         )
 
-    def update(self, slug, name, api_version="v1"):
+    def update(self, slug, name, api_version="v1", api_key=None, team_id=None):
         res = self.make_request(
             method="PATCH",
             resource=f"/teams/{self.id}",

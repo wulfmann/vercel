@@ -48,10 +48,7 @@ class TestDns(TestCase):
     def test_delete_record(self, mock_request):
         mock_request.return_value = MockResponse(response={})
 
-        record = vercel.DnsRecord.get("test.com", "fake-record-id")
-        record.delete()
-
-        assert isinstance(record, vercel.DnsRecord)
+        record = vercel.DnsRecord.delete("test.com", "fake-record-id")
 
         assert [
             call(
