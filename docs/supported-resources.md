@@ -111,7 +111,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |List Projects|✅||
 |Update Project|❌||
 |Delete Project|✅||
-|List Project Environment Variables|❌||
+|List Project Environment Variables|✅||
 |Create Project Environment Variable|✅||
 |Delete Project Environment Variable|✅||
 |Add Domain To Project|✅||
