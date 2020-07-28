@@ -1,0 +1,18 @@
+{
+    "members": [
+        {
+            "uid": "2qDDuGFTWXBLDNnqZfWPDp1A",
+            "role": "OWNER",
+            "email": "user-emailgmail.com",
+            "username": "some-user",
+            "confirmed": true
+        },
+        {
+            "uid": "JJHkdv6NaPOTH88pXn8FEuGz",
+            "role": "OWNER",
+            "email": "another-user@mail.com",
+            "username": "another-user",
+            "confirmed": true
+        }
+    ]
+}

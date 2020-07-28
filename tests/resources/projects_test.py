@@ -11,11 +11,11 @@ from vercel.resources.deployments import Deployment
 
 class TestProjects(TestCase):
     def setUp(self):
-        vercel.api_key = "fake-api-key"
+        vercel.api_token = "fake-api-token"
         vercel.team_id = "fake-team-id"
 
     def tearDown(self):
-        vercel.api_key = None
+        vercel.api_token = None
         vercel.team_id = None
 
     @patch("requests.request")
@@ -58,7 +58,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
                 json={"name": "test-project"},
@@ -156,7 +156,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             )
@@ -181,7 +181,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -190,7 +190,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -219,7 +219,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -228,7 +228,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v4/projects/project-id/env",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"key": "my-var", "value": "@my-secret", "target": "production"},
                 params={"teamId": "fake-team-id"},
@@ -256,7 +256,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -265,7 +265,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v4/projects/project-id/env/my-var",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id", "target": "production"},
             ),
@@ -292,7 +292,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -301,7 +301,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id/alias",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"domain": "foobar.com"},
                 params={"teamId": "fake-team-id"},
@@ -329,7 +329,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -338,7 +338,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id/alias",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"domain": "foobar.com", "teamId": "fake-team-id"},
             ),
@@ -365,7 +365,7 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/test-project",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 params={"teamId": "fake-team-id"},
             ),
@@ -374,9 +374,131 @@ class TestProjects(TestCase):
                 url="https://api.vercel.com/v1/projects/project-id/alias",
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer fake-api-key",
+                    "Authorization": "Bearer fake-api-token",
                 },
                 json={"domain": "foobar.com", "redirect": "www.foobar.com"},
                 params={"teamId": "fake-team-id"},
             ),
         ] == mock_request.mock_calls
+
+    @patch("requests.request")
+    def test_list_all_v1(self, mock_request):
+        mock_v4_list_one = json.loads(
+            Path("tests/fixtures/responses/projects/v4/list_1.json").open().read()
+        )
+        mock_v4_list_two = json.loads(
+            Path("tests/fixtures/responses/projects/v4/list_2.json").open().read()
+        )
+        mock_v4_list_three = json.loads(
+            Path("tests/fixtures/responses/projects/v4/list_3.json").open().read()
+        )
+
+        mock_request.side_effect = [
+            MockResponse(mock_v4_list_one),
+            MockResponse(mock_v4_list_two),
+            MockResponse(mock_v4_list_three),
+        ]
+
+        projects = vercel.Project.list_all()
+
+        assert len(projects) == 6
+
+        assert mock_request.mock_calls == [
+            call(
+                url="https://api.vercel.com/v4/projects",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v4/projects",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1555072968396},
+            ),
+            call(
+                url="https://api.vercel.com/v4/projects",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1555072968397},
+            ),
+        ]
+
+    @patch("requests.request")
+    def test_list_environment_variables_v1(self, mock_request):
+        mock_v1_get = Path("tests/fixtures/responses/projects/v1/get.json")
+        mock_v4_list_one = json.loads(
+            Path("tests/fixtures/responses/projects/v5/list_env_vars_1.json")
+            .open()
+            .read()
+        )
+        mock_v4_list_two = json.loads(
+            Path("tests/fixtures/responses/projects/v5/list_env_vars_2.json")
+            .open()
+            .read()
+        )
+        mock_v4_list_three = json.loads(
+            Path("tests/fixtures/responses/projects/v5/list_env_vars_3.json")
+            .open()
+            .read()
+        )
+
+        mock_request.side_effect = [
+            MockResponse(response=json.loads(mock_v1_get.open().read())),
+            MockResponse(mock_v4_list_one),
+            MockResponse(mock_v4_list_two),
+            MockResponse(mock_v4_list_three),
+        ]
+
+        project = vercel.Project.get("project-id")
+        variables = project.list_environment_variables()
+
+        assert len(variables) == 9
+
+        assert mock_request.mock_calls == [
+            call(
+                method="GET",
+                url="https://api.vercel.com/v1/projects/project-id",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v5/projects/project-id/env",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id"},
+            ),
+            call(
+                url="https://api.vercel.com/v5/projects/project-id/env",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1557241361435},
+            ),
+            call(
+                url="https://api.vercel.com/v5/projects/project-id/env",
+                method="GET",
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer fake-api-token",
+                },
+                params={"teamId": "fake-team-id", "since": 1557241361436},
+            ),
+        ]

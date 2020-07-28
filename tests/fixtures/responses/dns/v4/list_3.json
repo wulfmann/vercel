@@ -1,0 +1,28 @@
+{
+    "records": [
+        {
+            "id": "rec_38OtX1f51szRA03atCybBuZ3",
+            "slug": "example.com.-address",
+            "type": "ALIAS",
+            "name": "",
+            "value": "cname.vercel-dns.com",
+            "creator": "EvQtLv2F0FvfB5Vx4eK0R3Mf",
+            "created": "1474631621542",
+            "createdAt": "1474631621542",
+            "updated": null,
+            "updatedAt": null
+        },
+        {
+            "id": "rec_Pxo2HEfutmlIYECtTE4SpDzY",
+            "slug": "",
+            "type": "CNAME",
+            "name": "*",
+            "value": "cname.vercel-dns.com",
+            "creator": "system",
+            "created": "1474631619960",
+            "createdAt": "1474631619960",
+            "updated": null,
+            "updatedAt": null
+        }
+    ]
+}

@@ -19,7 +19,7 @@ class DnsRecord(Resource):
         value,
         ttl=None,
         api_version="v2",
-        api_key=None,
+        api_token=None,
         team_id=None,
     ):
         data = {"name": name, "type": type, "value": value}
@@ -29,23 +29,52 @@ class DnsRecord(Resource):
 
         res = cls.make_request(
             method="POST",
-            resource=f"/domains/{domain_name}/records",
+            resource=f"/{api_version}/domains/{domain_name}/records",
             data=data,
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls(id=res["uid"], domain_name=domain_name)
 
     @classmethod
+    def list_records(
+        cls,
+        domain_name,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v4",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        res = cls.make_paginated_request(
+            resource=f"/{api_version}/domains/{domain_name}/records",
+            response_key="records",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res
+
+    @classmethod
     def delete(
-        cls, domain_name, record_id, api_version="v2", api_key=None, team_id=None
+        cls, domain_name, record_id, api_version="v2", api_token=None, team_id=None
     ):
         return cls.make_request(
             method="DELETE",
-            resource=f"/domains/{domain_name}/records/{record_id}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/domains/{domain_name}/records/{record_id}",
+            api_token=api_token,
             team_id=team_id,
         )

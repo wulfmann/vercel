@@ -1,0 +1,22 @@
+{
+    "projects": [
+        {
+            "id": "QmQKrt94KYKF3sDysJq19N8gvhmE8Wicbt2GirePy1dH8U",
+            "name": "a-project-name",
+            "accountId": "K4amb7K9dAt5R2vBJWF32bmY",
+            "createdAt": 1555413045188,
+            "updatedAt": 1555413045188,
+            "targets": {},
+            "latestDeployments": []
+        },
+        {
+            "id": "QmRhxc9HAmRMcLvWhCAf2ALLctxZ4s4fwsM1D5kNM8PJuL",
+            "name": "another-project-name",
+            "accountId": "K4amb7K9dAt5R2vBJWF32bmY",
+            "createdAt": 1555072968396,
+            "updatedAt": 1555345633993,
+            "targets": {},
+            "latestDeployments": []
+        }
+    ]
+}

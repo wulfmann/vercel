@@ -102,7 +102,7 @@ class Domain(Resource):
         since=None,
         until=None,
         api_version="v5",
-        api_key=None,
+        api_token=None,
         team_id=None,
     ):
         params = {}
@@ -120,58 +120,53 @@ class Domain(Resource):
             resource=f"/{api_version}/domains",
             response_key="domains",
             params=params,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
-        print(res)
         return res
 
     @classmethod
-    def get(cls, name, api_version="v4", api_key=None, team_id=None):
+    def get(cls, name, api_version="v4", api_token=None, team_id=None):
         res = cls.make_request(
             method="GET",
-            resource=f"/domains/{name}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/domains/{name}",
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls.from_data(res)
 
     @classmethod
-    def create(cls, name, api_version="v4", api_key=None, team_id=None):
+    def create(cls, name, api_version="v4", api_token=None, team_id=None):
         res = cls.make_request(
             method="POST",
-            resource=f"/domains",
+            resource=f"/{api_version}/domains",
             data={"name": name},
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls.from_data(res)
 
     @classmethod
-    def check_availability(cls, name, api_version="v4", api_key=None, team_id=None):
+    def check_availability(cls, name, api_version="v4", api_token=None, team_id=None):
         res = cls.make_request(
             method="GET",
-            resource=f"/domains/status",
-            query_string={"name": name},
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/domains/status",
+            params={"name": name},
+            api_token=api_token,
             team_id=team_id,
         )
 
         return res
 
     @classmethod
-    def check_price(cls, name, api_version="v4", api_key=None, team_id=None):
+    def check_price(cls, name, api_version="v4", api_token=None, team_id=None):
         res = cls.make_request(
             method="GET",
-            resource=f"/domains/price",
-            query_string={"name": name},
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/domains/price",
+            params={"name": name},
+            api_token=api_token,
             team_id=team_id,
         )
 
@@ -179,25 +174,23 @@ class Domain(Resource):
 
     @classmethod
     def purchase(
-        cls, name, expected_price, api_version="v4", api_key=None, team_id=None
+        cls, name, expected_price, api_version="v4", api_token=None, team_id=None
     ):
         res = cls.make_request(
             method="POST",
-            resource=f"/domains/buy",
+            resource=f"/{api_version}/domains/buy",
             data={"name": name, "expectedPrice": expected_price},
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
         return res
 
-    def delete(self, api_version="v4", api_key=None, team_id=None):
+    def delete(self, api_version="v4", api_token=None, team_id=None):
         return self.make_request(
             method="DELETE",
-            resource=f"/domains/{self.name}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/domains/{self.name}",
+            api_token=api_token,
             team_id=team_id,
         )
 
@@ -208,3 +201,8 @@ class Domain(Resource):
 
     def get_dns_record(self, record_id):
         return DnsRecord.get(domain_name=self.name, record_id=record_id)
+
+    def list_records(self, limit=None, since=None, until=None):
+        return DnsRecord.list_records(
+            domain_name=self.name, limit=limit, since=since, until=until
+        )

@@ -58,7 +58,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|List Certificates|❌||
+|List Certificates|✅||
 |Get Certificate|✅||
 |Create Certificate|✅||
 |Submit Certificate|✅||
@@ -68,18 +68,18 @@ The following is a table of all of the API resources from Vercel, along with thi
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|List Aliases|❌||
+|List Aliases|✅||
 |Get Alias|✅||
 |Delete Alias|✅||
 |Purge Alias|✅||
-|List Aliases By Deployment|❌||
+|List Aliases By Deployment|✅||
 |Assign Alias To Deployment|✅||
 
 ### Secrets
 
 |Operation|Supported|Reference|
 |---------|---------|-------------|
-|List Secrets|❌||
+|List Secrets|✅||
 |Get Secret|✅||
 |Create Secret|✅||
 |Change Secret Name|✅||
@@ -90,11 +90,11 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Operation|Supported|Reference|
 |---------|---------|-------------|
 |Create Team|✅||
-|Delete Team|we||
-|List Teams|❌||
+|Delete Team|✅||
+|List Teams|✅||
 |Get Team|✅||
 |Update Team|✅||
-|List Team Members|❌||
+|List Team Members|✅||
 |Invite User To Team|✅||
 |Change User Role Or Status|✅||
 |Request To Join Team|✅||
@@ -108,10 +108,10 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Create Project|✅||
 |Ensure Project Exists|❌||
 |Get Project|✅||
-|List Projects|❌||
+|List Projects|✅||
 |Update Project|❌||
 |Delete Project|✅||
-|List Project Environment Variables|❌||
+|List Project Environment Variables|✅||
 |Create Project Environment Variable|✅||
 |Delete Project Environment Variable|✅||
 |Add Domain To Project|✅||

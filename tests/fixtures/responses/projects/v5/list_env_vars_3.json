@@ -1,0 +1,31 @@
+{
+    "envs": [
+        {
+            "key": "API_SECRET_2",
+            "value": "secret_id_123456789",
+            "target": "production",
+            "system": false,
+            "configurationId": null,
+            "updatedAt": 1557241361455,
+            "createdAt": 1557241361455
+        },
+        {
+            "key": "API_SECRET_1",
+            "value": "secret_id_123456788",
+            "target": "production",
+            "system": false,
+            "configurationId": null,
+            "updatedAt": 1557241361445,
+            "createdAt": 1557241361445
+        },
+        {
+            "key": "API_SECRET",
+            "value": "secret_id_123456787",
+            "target": "production",
+            "system": false,
+            "configurationId": null,
+            "updatedAt": 1557241361435,
+            "createdAt": 1557241361435
+        }
+    ]
+}

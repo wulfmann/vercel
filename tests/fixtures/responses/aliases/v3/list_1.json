@@ -1,0 +1,39 @@
+{
+    "aliases": [
+        {
+            "uid": "2WjyKQmM8ZnGcJsPWMrHRHrE",
+            "alias": "my-alias",
+            "created": "2016-06-02T21:01:40.950Z",
+            "createdAt": 1464894100000,
+            "updatedAt": 1464895100000,
+            "projectId": "QmXGTs7mvAMMC7WW5ebrM33qKG32QK3h4vmQMjmY",
+            "deployment": {
+                "id": "c9MrOWGzdJSfPxqyTDYhdEGN",
+                "url": "my-app-fjvngszyiq.now.sh"
+            },
+            "deploymentId": "c9MrOWGzdJSfPxqyTDYhdEGN"
+        },
+        {
+            "uid": "CR3bdJZkiaAuh9yr0OHXJJPG",
+            "alias": "my-alias-2",
+            "created": "2016-06-01T21:03:10.420Z",
+            "createdAt": 1464807790000,
+            "updatedAt": 1464808790000,
+            "projectId": "QmXGTs7mvAMMC7WW5ebrM33qKG32QK3h4vmQMjmY",
+            "rules": [
+                {
+                    "pathname": "/",
+                    "dest": "my-app-fjvngszyiq.now.sh"
+                },
+                {
+                    "dest": "my-api-ibzcpajvlo.now.sh"
+                }
+            ]
+        }
+    ],
+    "pagination": {
+        "count": 2,
+        "next": 1464807790001,
+        "prev": 1464894100000
+    }
+}

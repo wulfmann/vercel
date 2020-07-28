@@ -1,8 +1,6 @@
 # Vercel Python SDK
 
-## 🚨 This library is currently in beta 🚨
-
-Most resources are supported, but some are missing. You can check the [support table](/docs/supported-resources.md) for an up-to-date list.
+Most resources are supported, but some are missing. You can check the [support table](/docs/supported-resources.md) for an up-to-date list. This library is in active development. If something you need is missing, [open an issue](https://github.com/wulfmann/vercel/issues/new/choose).
 
 ## Install
 
@@ -17,7 +15,7 @@ pip install vercel
 ```python
 import vercel
 
-vercel.api_key = 'xxxxxx'
+vercel.api_token = 'xxxxxx'
 
 user = vercel.User.get()
 ```
@@ -31,7 +29,7 @@ You can learn more about the authentication process [here](/docs/reference/authe
 ```python
 import vercel
 
-vercel.api_key = 'xxxxxx'
+vercel.api_token = 'xxxxxx'
 vercel.team_id = 'my-team
 
 vercel.Domain.get('mydomain.com')

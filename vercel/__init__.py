@@ -1,4 +1,4 @@
 from vercel.resources import *
 
-api_key = None
+api_token = None
 team_id = None

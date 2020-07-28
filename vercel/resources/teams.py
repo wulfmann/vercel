@@ -22,7 +22,7 @@ class Team(Resource):
         )
 
     @classmethod
-    def get(cls, slug=None, id=None, api_version="v1", api_key=None, team_id=None):
+    def get(cls, slug=None, id=None, api_version="v1", api_token=None, team_id=None):
         if slug is None and id is None:
             raise Exception("you can only specify one of name or id")
         if slug is not None and id is not None:
@@ -39,57 +39,52 @@ class Team(Resource):
 
         res = cls.make_request(
             method="GET",
-            resource=resource,
-            query_string=params,
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}{resource}",
+            params=params,
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls.from_data(res)
 
     @classmethod
-    def create(cls, slug, api_version="v1", api_key=None, team_id=None):
+    def create(cls, slug, api_version="v1", api_token=None, team_id=None):
         res = cls.make_request(
             method="POST",
-            resource=f"/teams",
+            resource=f"/{api_version}/teams",
             data={"slug": slug},
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
         return cls.from_data(res)
 
-    def delete(self, api_version="v1", api_key=None, team_id=None):
+    def delete(self, api_version="v1", api_token=None, team_id=None):
         return self.make_request(
             method="DELETE",
-            resource=f"/teams/{self.id}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/teams/{self.id}",
+            api_token=api_token,
             team_id=team_id,
         )
 
-    def update(self, slug, name, api_version="v1", api_key=None, team_id=None):
+    def update(self, slug, name, api_version="v1", api_token=None, team_id=None):
         res = self.make_request(
             method="PATCH",
-            resource=f"/teams/{self.id}",
+            resource=f"/{api_version}/teams/{self.id}",
             data={"slug": slug, "name": name},
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
         # todo refactor this to update current object instead of creating a new one
         return Team.from_data(res)
 
-    def invite_user(self, email, role, api_version="v1", api_key=None, team_id=None):
+    def invite_user(self, email, role, api_version="v1", api_token=None, team_id=None):
         # todo validate role
         return self.make_request(
             method="POST",
-            resource=f"/teams/{self.id}/members",
+            resource=f"/{api_version}/teams/{self.id}/members",
             data={"email": email, "role": role},
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
@@ -99,7 +94,7 @@ class Team(Resource):
         role,
         confirmed=None,
         api_version="v1",
-        api_key=None,
+        api_token=None,
         team_id=None,
     ):
         # todo validate role
@@ -110,10 +105,9 @@ class Team(Resource):
 
         return self.make_request(
             method="PATCH",
-            resource=f"/teams/{self.id}/members/{user_id}",
+            resource=f"/{api_version}/teams/{self.id}/members/{user_id}",
             data=data,
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
@@ -123,7 +117,7 @@ class Team(Resource):
         commit_id=None,
         repo_id=None,
         api_version="v1",
-        api_key=None,
+        api_token=None,
         team_id=None,
     ):
         # todo validate origin
@@ -137,18 +131,75 @@ class Team(Resource):
 
         return self.make_request(
             method="POST",
-            resource=f"/teams/{self.id}/request",
+            resource=f"/{api_version}/teams/{self.id}/request",
             data=data,
-            api_version=api_version,
-            api_key=api_key,
+            api_token=api_token,
             team_id=team_id,
         )
 
-    def remove_user(self, user_id, api_version="v1", api_key=None, team_id=None):
+    def remove_user(self, user_id, api_version="v1", api_token=None, team_id=None):
         return self.make_request(
             method="DELETE",
-            resource=f"/teams/{self.id}/members/{user_id}",
-            api_version=api_version,
-            api_key=api_key,
+            resource=f"/{api_version}/teams/{self.id}/members/{user_id}",
+            api_token=api_token,
             team_id=team_id,
         )
+
+    @classmethod
+    def list_all(
+        cls,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v1",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        res = cls.make_paginated_request(
+            resource=f"/{api_version}/teams",
+            response_key="teams",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res
+
+    def list_members(
+        self,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v2",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        res = self.make_paginated_request(
+            resource=f"/{api_version}/teams/{self.id}/members",
+            response_key="members",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res
