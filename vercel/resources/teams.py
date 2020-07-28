@@ -62,7 +62,7 @@ class Team(Resource):
         return cls.from_data(res)
 
     def delete(self, api_version="v1"):
-        self.make_request(
+        return self.make_request(
             method="DELETE", resource=f"/teams/{self.id}", api_version=api_version, api_key=api_key,
             team_id=team_id
         )
