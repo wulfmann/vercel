@@ -108,7 +108,7 @@ The following is a table of all of the API resources from Vercel, along with thi
 |Create Project|✅||
 |Ensure Project Exists|❌||
 |Get Project|✅||
-|List Projects|❌||
+|List Projects|✅||
 |Update Project|❌||
 |Delete Project|✅||
 |List Project Environment Variables|❌||

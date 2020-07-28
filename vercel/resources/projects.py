@@ -223,3 +223,37 @@ class Project(Resource):
         )
 
         return res
+
+    @classmethod
+    def list_all(
+        cls,
+        search=None,
+        limit=None,
+        since=None,
+        until=None,
+        api_version="v4",
+        api_token=None,
+        team_id=None,
+    ):
+        params = {}
+
+        if limit is not None:
+            params["limit"] = limit
+
+        if since is not None:
+            params["since"] = since
+
+        if until is not None:
+            params["until"] = until
+
+        if search is not None:
+            params["search"] = search
+
+        res = cls.make_paginated_request(
+            resource=f"/{api_version}/projects",
+            response_key="projects",
+            params=params,
+            api_token=api_token,
+            team_id=team_id,
+        )
+        return res
